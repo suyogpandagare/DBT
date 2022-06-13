@@ -1,0 +1,1562 @@
+
+
+DDL [always autocommit]   - Create, Rename, Alter, Drop, Truncate,....
+
+DML [ commit (save/ ^s), rollback (undo/ ^z) ]  - 
+	
+        Insert(New data), 
+		Update (changing old data with new data), 
+		Delete (removes row/ tuple/ record), Select 
+
+DQL   - Select commit
+
+DCL - Grand, Revoke
+
+TCL - Commit, Rollback, Savepoine
+
+create table emp ( column_name dataType, 
+                   column_name dataType, 
+				   column_name dataType, 
+				   column_name dataType
+				 )
+				 
+				 
+
+create table emp( id int auto_increment, 
+				  ename varchar(10) not null, 
+				  job varchar(10), 
+				  city varchar(10) default 'Pune', 
+				  sal int check(sal >= 5000)
+				) 
+				  
+				  
+				  
+				 
+Microsoft Windows [Version 10.0.17763.2928]
+(c) 2018 Microsoft Corporation. All rights reserved.
+
+C:\Users\faculty>mysql --host=localhsot --port=3306 --user=root --password=root db2
+mysql: [Warning] Using a password on the command line interface can be insecure.
+ERROR 2005 (HY000): Unknown MySQL server host 'localhsot' (11001)
+
+C:\Users\faculty>mysql --host=localhost --port=3306 --user=root --password=root db2
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 9
+Server version: 8.0.29 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> select database();
++------------+
+| database() |
++------------+
+| db2        |
++------------+
+1 row in set (0.00 sec)
+
+mysql> show tables;
++---------------+
+| Tables_in_db2 |
++---------------+
+| dept          |
+| emp           |
++---------------+
+2 rows in set (0.00 sec)
+
+mysql> drop table emp, dept;
+Query OK, 0 rows affected (0.73 sec)
+
+mysql> show tables;
+Empty set (0.00 sec)
+
+mysql> create table emp(id int auto_increment, ename varchar(10) not null, job varchar(10), city varchar(10) default 'Pune', sal int check(sal >= 5000));
+ERROR 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key
+mysql>
+mysql>
+mysql>
+mysql> create table emp(id int primary auto_increment, ename varchar(10) not null, job varchar(10), city varchar(10) default 'Pune', sal int check(sal >= 5000));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'auto_increment, ename varchar(10) not null, job varchar(10), city varchar(10) de' at line 1
+mysql>
+mysql>
+mysql> create table emp(id int primary key auto_increment, ename varchar(10) not null, job varchar(10), city varchar(10) default 'Pune', sal int check(sal >= 5000));
+Query OK, 0 rows affected (0.39 sec)
+
+mysql> desc emp;\
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int         | NO   | PRI | NULL    | auto_increment |
+| ename | varchar(10) | NO   |     | NULL    |                |
+| job   | varchar(10) | YES  |     | NULL    |                |
+| city  | varchar(10) | YES  |     | Pune    |                |
+| sal   | int         | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> insert into emp values(default, null, 'manager', 'baroda', 6000);
+ERROR 1048 (23000): Column 'ename' cannot be null
+mysql>
+mysql> insert into emp values(default, 'saleel', 'manager', 'baroda', 600);
+ERROR 3819 (HY000): Check constraint 'emp_chk_1' is violated.
+mysql>
+mysql> insert into emp values(default, 'saleel', 'manager', 'baroda', 6000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp;
++----+--------+---------+--------+------+
+| id | ename  | job     | city   | sal  |
++----+--------+---------+--------+------+
+|  1 | saleel | manager | baroda | 6000 |
++----+--------+---------+--------+------+
+1 row in set (0.00 sec)
+
+mysql> insert into emp values(default, 'saleel', 'manager', default, 6000);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp;
++----+--------+---------+--------+------+
+| id | ename  | job     | city   | sal  |
++----+--------+---------+--------+------+
+|  1 | saleel | manager | baroda | 6000 |
+|  2 | saleel | manager | Pune   | 6000 |
++----+--------+---------+--------+------+
+2 rows in set (0.00 sec)
+
+mysql>
+mysql> insert into emp(ename, job, sal) values('ruhan','salesman', 5500), ("omkar's",'hr', 7000), ("Amit", "abc", 6700);
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from emp;
++----+---------+----------+--------+------+
+| id | ename   | job      | city   | sal  |
++----+---------+----------+--------+------+
+|  1 | saleel  | manager  | baroda | 6000 |
+|  2 | saleel  | manager  | Pune   | 6000 |
+|  3 | ruhan   | salesman | Pune   | 5500 |
+|  4 | omkar's | hr       | Pune   | 7000 |
+|  5 | Amit    | abc      | Pune   | 6700 |
++----+---------+----------+--------+------+
+5 rows in set (0.00 sec)
+
+mysql>
+mysql>
+mysql> insert into emp(job, sal) values('salesman', 5500);\
+ERROR 1364 (HY000): Field 'ename' doesn't have a default value
+mysql>
+mysql>
+mysql> insert into emp(id, ename, job, sal) values(1001, 'bandish','hr', 5500);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp;
++------+---------+----------+--------+------+
+| id   | ename   | job      | city   | sal  |
++------+---------+----------+--------+------+
+|    1 | saleel  | manager  | baroda | 6000 |
+|    2 | saleel  | manager  | Pune   | 6000 |
+|    3 | ruhan   | salesman | Pune   | 5500 |
+|    4 | omkar's | hr       | Pune   | 7000 |
+|    5 | Amit    | abc      | Pune   | 6700 |
+| 1001 | bandish | hr       | Pune   | 5500 |
++------+---------+----------+--------+------+
+6 rows in set (0.00 sec)
+
+mysql> insert into emp(id, ename, job, sal) values(1, 'sharmin','hr', 5500);
+ERROR 1062 (23000): Duplicate entry '1' for key 'emp.PRIMARY'
+mysql>
+mysql>
+mysql> insert into emp(ename, job, sal) values('sharmin','hr', 5500);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp;
++------+---------+----------+--------+------+
+| id   | ename   | job      | city   | sal  |
++------+---------+----------+--------+------+
+|    1 | saleel  | manager  | baroda | 6000 |
+|    2 | saleel  | manager  | Pune   | 6000 |
+|    3 | ruhan   | salesman | Pune   | 5500 |
+|    4 | omkar's | hr       | Pune   | 7000 |
+|    5 | Amit    | abc      | Pune   | 6700 |
+| 1001 | bandish | hr       | Pune   | 5500 |
+| 1002 | sharmin | hr       | Pune   | 5500 |
++------+---------+----------+--------+------+
+7 rows in set (0.00 sec)
+
+mysql> insert into emp(id, ename, job, sal) values(1000, 'bandish','hr', 5500);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp;
++------+---------+----------+--------+------+
+| id   | ename   | job      | city   | sal  |
++------+---------+----------+--------+------+
+|    1 | saleel  | manager  | baroda | 6000 |
+|    2 | saleel  | manager  | Pune   | 6000 |
+|    3 | ruhan   | salesman | Pune   | 5500 |
+|    4 | omkar's | hr       | Pune   | 7000 |
+|    5 | Amit    | abc      | Pune   | 6700 |
+| 1000 | bandish | hr       | Pune   | 5500 |
+| 1001 | bandish | hr       | Pune   | 5500 |
+| 1002 | sharmin | hr       | Pune   | 5500 |
++------+---------+----------+--------+------+
+8 rows in set (0.00 sec)
+
+mysql> insert into emp(ename, job, sal) values('zzz','hr', 5500);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp;
++------+---------+----------+--------+------+
+| id   | ename   | job      | city   | sal  |
++------+---------+----------+--------+------+
+|    1 | saleel  | manager  | baroda | 6000 |
+|    2 | saleel  | manager  | Pune   | 6000 |
+|    3 | ruhan   | salesman | Pune   | 5500 |
+|    4 | omkar's | hr       | Pune   | 7000 |
+|    5 | Amit    | abc      | Pune   | 6700 |
+| 1000 | bandish | hr       | Pune   | 5500 |
+| 1001 | bandish | hr       | Pune   | 5500 |
+| 1002 | sharmin | hr       | Pune   | 5500 |
+| 1003 | zzz     | hr       | Pune   | 5500 |
++------+---------+----------+--------+------+
+9 rows in set (0.00 sec)
+
+mysql> create table emp1(id int primary key auto_increment default 100, ename varchar(10) not null, job varchar(10), city varchar(10) default 'Pune', sal int check(sal >= 5000));
+ERROR 1067 (42000): Invalid default value for 'id'
+mysql>
+mysql>
+mysql>
+mysql> insert into emp(id, ename, job, sal) values(null, 'zzz','hr', 5500);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into emp(id, ename, job, sal) values(0, 'zzz','hr', 5500);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>
+mysql>
+mysql> select * from emp;
++------+---------+----------+--------+------+
+| id   | ename   | job      | city   | sal  |
++------+---------+----------+--------+------+
+|    1 | saleel  | manager  | baroda | 6000 |
+|    2 | saleel  | manager  | Pune   | 6000 |
+|    3 | ruhan   | salesman | Pune   | 5500 |
+|    4 | omkar's | hr       | Pune   | 7000 |
+|    5 | Amit    | abc      | Pune   | 6700 |
+| 1000 | bandish | hr       | Pune   | 5500 |
+| 1001 | bandish | hr       | Pune   | 5500 |
+| 1002 | sharmin | hr       | Pune   | 5500 |
+| 1003 | zzz     | hr       | Pune   | 5500 |
+| 1004 | zzz     | hr       | Pune   | 5500 |
+| 1005 | zzz     | hr       | Pune   | 5500 |
++------+---------+----------+--------+------+
+11 rows in set (0.00 sec)
+
+mysql>
+mysql> select last_insert_id();
++------------------+
+| last_insert_id() |
++------------------+
+|             1005 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select last_insert_id() + 1;
++----------------------+
+| last_insert_id() + 1 |
++----------------------+
+|                 1006 |
++----------------------+
+1 row in set (0.00 sec)
+
+mysql> desc emp;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int         | NO   | PRI | NULL    | auto_increment |
+| ename | varchar(10) | NO   |     | NULL    |                |
+| job   | varchar(10) | YES  |     | NULL    |                |
+| city  | varchar(10) | YES  |     | Pune    |                |
+| sal   | int         | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> create table a(c1 int primary key auto_increment, c2 int);
+Query OK, 0 rows affected (0.34 sec)
+
+mysql> insert into a (default, last_insert_id());
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'default, last_insert_id())' at line 1
+mysql> insert into a values (default, last_insert_id());
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from a;
++----+------+
+| c1 | c2   |
++----+------+
+|  1 | 1005 |
++----+------+
+1 row in set (0.00 sec)
+
+mysql> insert into a values (default, last_insert_id());
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from a;
++----+------+
+| c1 | c2   |
++----+------+
+|  1 | 1005 |
+|  2 |    1 |
++----+------+
+2 rows in set (0.00 sec)
+
+mysql> select last_insert_id();
++------------------+
+| last_insert_id() |
++------------------+
+|                2 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql>
+mysql>
+mysql> drop table a;\
+Query OK, 0 rows affected (0.26 sec)
+
+mysql> select last_insert_id();
++------------------+
+| last_insert_id() |
++------------------+
+|                2 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp;
++------+---------+----------+--------+------+
+| id   | ename   | job      | city   | sal  |
++------+---------+----------+--------+------+
+|    1 | saleel  | manager  | baroda | 6000 |
+|    2 | saleel  | manager  | Pune   | 6000 |
+|    3 | ruhan   | salesman | Pune   | 5500 |
+|    4 | omkar's | hr       | Pune   | 7000 |
+|    5 | Amit    | abc      | Pune   | 6700 |
+| 1000 | bandish | hr       | Pune   | 5500 |
+| 1001 | bandish | hr       | Pune   | 5500 |
+| 1002 | sharmin | hr       | Pune   | 5500 |
+| 1003 | zzz     | hr       | Pune   | 5500 |
+| 1004 | zzz     | hr       | Pune   | 5500 |
+| 1005 | zzz     | hr       | Pune   | 5500 |
++------+---------+----------+--------+------+
+11 rows in set (0.00 sec)
+
+mysql> insert into emp(id, ename, job, sal) values(10, 'aaa','hr', 5500);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp;
++------+---------+----------+--------+------+
+| id   | ename   | job      | city   | sal  |
++------+---------+----------+--------+------+
+|    1 | saleel  | manager  | baroda | 6000 |
+|    2 | saleel  | manager  | Pune   | 6000 |
+|    3 | ruhan   | salesman | Pune   | 5500 |
+|    4 | omkar's | hr       | Pune   | 7000 |
+|    5 | Amit    | abc      | Pune   | 6700 |
+|   10 | aaa     | hr       | Pune   | 5500 |
+| 1000 | bandish | hr       | Pune   | 5500 |
+| 1001 | bandish | hr       | Pune   | 5500 |
+| 1002 | sharmin | hr       | Pune   | 5500 |
+| 1003 | zzz     | hr       | Pune   | 5500 |
+| 1004 | zzz     | hr       | Pune   | 5500 |
+| 1005 | zzz     | hr       | Pune   | 5500 |
++------+---------+----------+--------+------+
+12 rows in set (0.00 sec)
+
+mysql> create table a (c1 int primary key auto_increment, c2 int);
+Query OK, 0 rows affected (0.36 sec)
+
+mysql> select last_insert_id();
++------------------+
+| last_insert_id() |
++------------------+
+|                2 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> insert into emp(id, ename, job, sal) values(default, 'aaa','hr', 5500);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp;
++------+---------+----------+--------+------+
+| id   | ename   | job      | city   | sal  |
++------+---------+----------+--------+------+
+|    1 | saleel  | manager  | baroda | 6000 |
+|    2 | saleel  | manager  | Pune   | 6000 |
+|    3 | ruhan   | salesman | Pune   | 5500 |
+|    4 | omkar's | hr       | Pune   | 7000 |
+|    5 | Amit    | abc      | Pune   | 6700 |
+|   10 | aaa     | hr       | Pune   | 5500 |
+| 1000 | bandish | hr       | Pune   | 5500 |
+| 1001 | bandish | hr       | Pune   | 5500 |
+| 1002 | sharmin | hr       | Pune   | 5500 |
+| 1003 | zzz     | hr       | Pune   | 5500 |
+| 1004 | zzz     | hr       | Pune   | 5500 |
+| 1005 | zzz     | hr       | Pune   | 5500 |
+| 1006 | aaa     | hr       | Pune   | 5500 |
++------+---------+----------+--------+------+
+13 rows in set (0.00 sec)
+
+mysql> select last_insert_id();
++------------------+
+| last_insert_id() |
++------------------+
+|             1006 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from a;
+Empty set (0.00 sec)
+
+mysql> desc a;
++-------+------+------+-----+---------+----------------+
+| Field | Type | Null | Key | Default | Extra          |
++-------+------+------+-----+---------+----------------+
+| c1    | int  | NO   | PRI | NULL    | auto_increment |
+| c2    | int  | YES  |     | NULL    |                |
++-------+------+------+-----+---------+----------------+
+2 rows in set (0.00 sec)
+
+mysql> insert into a values(default, last_insert_id());
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from a;
++----+------+
+| c1 | c2   |
++----+------+
+|  1 | 1006 |
++----+------+
+1 row in set (0.00 sec)
+
+mysql> select last_insert_id();\
++------------------+
+| last_insert_id() |
++------------------+
+|                1 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> insert into a values(default, last_insert_id());
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from a;
++----+------+
+| c1 | c2   |
++----+------+
+|  1 | 1006 |
+|  2 |    1 |
++----+------+
+2 rows in set (0.00 sec)
+
+mysql> insert into a values(default, last_insert_id());
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from a;
++----+------+
+| c1 | c2   |
++----+------+
+|  1 | 1006 |
+|  2 |    1 |
+|  3 |    2 |
++----+------+
+3 rows in set (0.00 sec)
+
+mysql> insert into a values(default, last_insert_id()+1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from a;
++----+------+
+| c1 | c2   |
++----+------+
+|  1 | 1006 |
+|  2 |    1 |
+|  3 |    2 |
+|  4 |    4 |
++----+------+
+4 rows in set (0.00 sec)
+
+mysql> insert into emp(id, ename, job, sal) values(20, 'aaa','hr', 5500);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into a values(default, last_insert_id());
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from a;\
++----+------+
+| c1 | c2   |
++----+------+
+|  1 | 1006 |
+|  2 |    1 |
+|  3 |    2 |
+|  4 |    4 |
+|  5 |    4 |
++----+------+
+5 rows in set (0.00 sec)
+
+mysql> drop table emp, a;\
+Query OK, 0 rows affected (0.41 sec)
+
+mysql> create table emp(c1 int auto_increment primary key, c2 int);
+Query OK, 0 rows affected (0.31 sec)
+
+mysql> create table a(c1 int auto_increment unique key, c2 int);
+Query OK, 0 rows affected (0.70 sec)
+
+mysql> exit
+Bye
+
+C:\Users\faculty>mysql --host=localhost --port=3306 --user=root --password=root db2
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 10
+Server version: 8.0.29 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> select * from emp;\
+Empty set (0.00 sec)
+
+mysql> select * from a;\
+Empty set (0.00 sec)
+
+mysql> select last_insert_id();
++------------------+
+| last_insert_id() |
++------------------+
+|                0 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> insert into emp values(default, 1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select last_insert_id();
++------------------+
+| last_insert_id() |
++------------------+
+|                1 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> insert into emp values(default, -1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp;
++----+------+
+| c1 | c2   |
++----+------+
+|  1 |    1 |
+|  2 |   -1 |
++----+------+
+2 rows in set (0.00 sec)
+
+mysql> select last_insert_id();
++------------------+
+| last_insert_id() |
++------------------+
+|                2 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> insert into a values(default, last_insert_id());
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp;
++----+------+
+| c1 | c2   |
++----+------+
+|  1 |    1 |
+|  2 |   -1 |
++----+------+
+2 rows in set (0.00 sec)
+
+mysql> select * from a;
++----+------+
+| c1 | c2   |
++----+------+
+|  1 |    2 |
++----+------+
+1 row in set (0.00 sec)
+
+mysql> select last_insert_id();
++------------------+
+| last_insert_id() |
++------------------+
+|                1 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from a;
++----+------+
+| c1 | c2   |
++----+------+
+|  1 |    2 |
++----+------+
+1 row in set (0.00 sec)
+
+mysql> insert into a values(default, last_insert_id());
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp;
++----+------+
+| c1 | c2   |
++----+------+
+|  1 |    1 |
+|  2 |   -1 |
++----+------+
+2 rows in set (0.00 sec)
+
+mysql> select * from a;
++----+------+
+| c1 | c2   |
++----+------+
+|  1 |    2 |
+|  2 |    1 |
++----+------+
+2 rows in set (0.00 sec)
+
+mysql> select last_insert_id();
++------------------+
+| last_insert_id() |
++------------------+
+|                2 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> insert into a values(default, last_insert_id());
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from a;
++----+------+
+| c1 | c2   |
++----+------+
+|  1 |    2 |
+|  2 |    1 |
+|  3 |    2 |
++----+------+
+3 rows in set (0.00 sec)
+
+mysql> select * from emp;
++----+------+
+| c1 | c2   |
++----+------+
+|  1 |    1 |
+|  2 |   -1 |
++----+------+
+2 rows in set (0.00 sec)
+
+mysql> select last_insert_id();
++------------------+
+| last_insert_id() |
++------------------+
+|                3 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> insert into emp values(default, last_insert_id());
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp;
++----+------+
+| c1 | c2   |
++----+------+
+|  1 |    1 |
+|  2 |   -1 |
+|  3 |    3 |
++----+------+
+3 rows in set (0.00 sec)
+
+mysql> select last_insert_id();
++------------------+
+| last_insert_id() |
++------------------+
+|                3 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> insert into emp values(default, last_insert_id());
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select last_insert_id();
++------------------+
+| last_insert_id() |
++------------------+
+|                4 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> select * from emp;
++----+------+
+| c1 | c2   |
++----+------+
+|  1 |    1 |
+|  2 |   -1 |
+|  3 |    3 |
+|  4 |    3 |
++----+------+
+4 rows in set (0.00 sec)
+
+mysql> select last_insert_id();
++------------------+
+| last_insert_id() |
++------------------+
+|                4 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> insert into emp values(default, last_insert_id());
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp;
++----+------+
+| c1 | c2   |
++----+------+
+|  1 |    1 |
+|  2 |   -1 |
+|  3 |    3 |
+|  4 |    3 |
+|  5 |    4 |
++----+------+
+5 rows in set (0.00 sec)
+
+mysql> select last_insert_id();
++------------------+
+| last_insert_id() |
++------------------+
+|                5 |
++------------------+
+1 row in set (0.00 sec)
+
+mysql> insert into a values(default, last_insert_id());
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from a;
++----+------+
+| c1 | c2   |
++----+------+
+|  1 |    2 |
+|  2 |    1 |
+|  3 |    2 |
+|  4 |    5 |
++----+------+
+4 rows in set (0.00 sec)
+
+mysql> maximum number of table  + 1 will be my new auto_increment value.....
+    -> ^C
+mysql>
+mysql>
+mysql>
+mysql> drop table emp, a;
+Query OK, 0 rows affected (0.45 sec)
+
+mysql> create table emp(id int primary key auto_increment, ename varchar(10) not null, job varchar(10), city varchar(10) default 'Pune', sal
+int check(sal >= 5000));
+Query OK, 0 rows affected (0.27 sec)
+
+mysql> desc emp;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int         | NO   | PRI | NULL    | auto_increment |
+| ename | varchar(10) | NO   |     | NULL    |                |
+| job   | varchar(10) | YES  |     | NULL    |                |
+| city  | varchar(10) | YES  |     | Pune    |                |
+| sal   | int         | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> add new col;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'add new col' at line 1
+mysql>
+mysql>
+mysql> alter --- > add new col, modify existing col (change the datatype or zize), change [ rename a col ], drop;
+    ->
+    -> ^C
+mysql>
+mysql>
+mysql>
+mysql> alter table emp add c1 int, add c2 int;
+Query OK, 0 rows affected (0.23 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int         | NO   | PRI | NULL    | auto_increment |
+| ename | varchar(10) | NO   |     | NULL    |                |
+| job   | varchar(10) | YES  |     | NULL    |                |
+| city  | varchar(10) | YES  |     | Pune    |                |
+| sal   | int         | YES  |     | NULL    |                |
+| c1    | int         | YES  |     | NULL    |                |
+| c2    | int         | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+7 rows in set (0.00 sec)
+
+mysql> alter table emp add c0 int after ename;\
+Query OK, 0 rows affected (0.21 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int         | NO   | PRI | NULL    | auto_increment |
+| ename | varchar(10) | NO   |     | NULL    |                |
+| c0    | int         | YES  |     | NULL    |                |
+| job   | varchar(10) | YES  |     | NULL    |                |
+| city  | varchar(10) | YES  |     | Pune    |                |
+| sal   | int         | YES  |     | NULL    |                |
+| c1    | int         | YES  |     | NULL    |                |
+| c2    | int         | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+8 rows in set (0.00 sec)
+
+mysql> alter table emp add c100 int first;
+Query OK, 0 rows affected (0.20 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;\
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| c100  | int         | YES  |     | NULL    |                |
+| id    | int         | NO   | PRI | NULL    | auto_increment |
+| ename | varchar(10) | NO   |     | NULL    |                |
+| c0    | int         | YES  |     | NULL    |                |
+| job   | varchar(10) | YES  |     | NULL    |                |
+| city  | varchar(10) | YES  |     | Pune    |                |
+| sal   | int         | YES  |     | NULL    |                |
+| c1    | int         | YES  |     | NULL    |                |
+| c2    | int         | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+9 rows in set (0.00 sec)
+
+mysql> alter table emp drop c1, c2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'c2' at line 1
+mysql> alter table emp drop (c1, c2);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '(c1, c2)' at line 1
+mysql>
+mysql>
+mysql> alter table emp drop c1, drop c2;
+Query OK, 0 rows affected (0.25 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| c100  | int         | YES  |     | NULL    |                |
+| id    | int         | NO   | PRI | NULL    | auto_increment |
+| ename | varchar(10) | NO   |     | NULL    |                |
+| c0    | int         | YES  |     | NULL    |                |
+| job   | varchar(10) | YES  |     | NULL    |                |
+| city  | varchar(10) | YES  |     | Pune    |                |
+| sal   | int         | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+7 rows in set (0.00 sec)
+
+mysql> alter table emp drop c100, drop c0;
+Query OK, 0 rows affected (0.40 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int         | NO   | PRI | NULL    | auto_increment |
+| ename | varchar(10) | NO   |     | NULL    |                |
+| job   | varchar(10) | YES  |     | NULL    |                |
+| city  | varchar(10) | YES  |     | Pune    |                |
+| sal   | int         | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> modify a col;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'modify a col' at line 1
+mysql>
+mysql>
+mysql> alter table emp modify ename varchar(20);\
+Query OK, 0 rows affected (0.83 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int         | NO   | PRI | NULL    | auto_increment |
+| ename | varchar(20) | YES  |     | NULL    |                |
+| job   | varchar(10) | YES  |     | NULL    |                |
+| city  | varchar(10) | YES  |     | Pune    |                |
+| sal   | int         | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql>
+mysql> alter table emp modify ename char(100);
+Query OK, 0 rows affected (0.88 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int         | NO   | PRI | NULL    | auto_increment |
+| ename | char(100)   | YES  |     | NULL    |                |
+| job   | varchar(10) | YES  |     | NULL    |                |
+| city  | varchar(10) | YES  |     | Pune    |                |
+| sal   | int         | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> alter table emp modify ename varchar(20);
+Query OK, 0 rows affected (1.02 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int         | NO   | PRI | NULL    | auto_increment |
+| ename | varchar(20) | YES  |     | NULL    |                |
+| job   | varchar(10) | YES  |     | NULL    |                |
+| city  | varchar(10) | YES  |     | Pune    |                |
+| sal   | int         | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> alter table emp modify ename varchar(20) nut null;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'nut null' at line 1
+mysql> alter table emp modify ename varchar(20) not null;
+Query OK, 0 rows affected (0.62 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql>
+mysql> desc emp;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int         | NO   | PRI | NULL    | auto_increment |
+| ename | varchar(20) | NO   |     | NULL    |                |
+| job   | varchar(10) | YES  |     | NULL    |                |
+| city  | varchar(10) | YES  |     | Pune    |                |
+| sal   | int         | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql>
+mysql>
+mysql> alter table emp modify city varchar(20) default 'Baroda';
+Query OK, 0 rows affected (0.08 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | int         | NO   | PRI | NULL    | auto_increment |
+| ename | varchar(20) | NO   |     | NULL    |                |
+| job   | varchar(10) | YES  |     | NULL    |                |
+| city  | varchar(20) | YES  |     | Baroda  |                |
+| sal   | int         | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> alter table emp modify id bigint;
+Query OK, 0 rows affected (1.50 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | bigint      | NO   | PRI | NULL    |       |
+| ename | varchar(20) | NO   |     | NULL    |       |
+| job   | varchar(10) | YES  |     | NULL    |       |
+| city  | varchar(20) | YES  |     | Baroda  |       |
+| sal   | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table emp modify id bigint auto_increment;
+Query OK, 0 rows affected (1.14 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | bigint      | NO   | PRI | NULL    | auto_increment |
+| ename | varchar(20) | NO   |     | NULL    |                |
+| job   | varchar(10) | YES  |     | NULL    |                |
+| city  | varchar(20) | YES  |     | Baroda  |                |
+| sal   | int         | YES  |     | NULL    |                |
++-------+-------------+------+-----+---------+----------------+
+5 rows in set (0.00 sec)
+
+mysql> alter table emp modify sal int auto_increment;
+ERROR 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key
+mysql>
+mysql> \
+mysql> alter table emp modify sal int unique key auto_increment;
+ERROR 1075 (42000): Incorrect table definition; there can be only one auto column and it must be defined as a key
+mysql>
+mysql> alter table emp modify id bigint;
+Query OK, 0 rows affected (0.62 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | bigint      | NO   | PRI | NULL    |       |
+| ename | varchar(20) | NO   |     | NULL    |       |
+| job   | varchar(10) | YES  |     | NULL    |       |
+| city  | varchar(20) | YES  |     | Baroda  |       |
+| sal   | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> alter table emp modify sal int unique key auto_increment;
+ERROR 3818 (HY000): Check constraint 'emp_chk_1' cannot refer to an auto-increment column.
+mysql>
+mysql> alter table emp add c1 int;
+Query OK, 0 rows affected (0.18 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | bigint      | NO   | PRI | NULL    |       |
+| ename | varchar(20) | NO   |     | NULL    |       |
+| job   | varchar(10) | YES  |     | NULL    |       |
+| city  | varchar(20) | YES  |     | Baroda  |       |
+| sal   | int         | YES  |     | NULL    |       |
+| c1    | int         | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> alter table emp modify c1 int unique key auto_increment;
+Query OK, 0 rows affected (1.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | bigint      | NO   | PRI | NULL    |                |
+| ename | varchar(20) | NO   |     | NULL    |                |
+| job   | varchar(10) | YES  |     | NULL    |                |
+| city  | varchar(20) | YES  |     | Baroda  |                |
+| sal   | int         | YES  |     | NULL    |                |
+| c1    | int         | NO   | UNI | NULL    | auto_increment |
++-------+-------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> alter table emp change c1 srno;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql>
+mysql>
+mysql> alter table emp change c1 srno int;
+Query OK, 0 rows affected (1.78 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | bigint      | NO   | PRI | NULL    |       |
+| ename | varchar(20) | NO   |     | NULL    |       |
+| job   | varchar(10) | YES  |     | NULL    |       |
+| city  | varchar(20) | YES  |     | Baroda  |       |
+| sal   | int         | YES  |     | NULL    |       |
+| srno  | int         | YES  | UNI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> alter table emp change srno c1 int anto_increment;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'anto_increment' at line 1
+mysql> alter table emp change srno c1 int auto_increment;
+Query OK, 0 rows affected (1.32 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++-------+-------------+------+-----+---------+----------------+
+| Field | Type        | Null | Key | Default | Extra          |
++-------+-------------+------+-----+---------+----------------+
+| id    | bigint      | NO   | PRI | NULL    |                |
+| ename | varchar(20) | NO   |     | NULL    |                |
+| job   | varchar(10) | YES  |     | NULL    |                |
+| city  | varchar(20) | YES  |     | Baroda  |                |
+| sal   | int         | YES  |     | NULL    |                |
+| c1    | int         | NO   | UNI | NULL    | auto_increment |
++-------+-------------+------+-----+---------+----------------+
+6 rows in set (0.00 sec)
+
+mysql> alter table emp add c2 int, modify ename varchar(10), change sal salary int, drop c1;
+ERROR 3959 (HY000): Check constraint 'emp_chk_1' uses column 'sal', hence column cannot be dropped or renamed.
+mysql> alter table emp add c2 int, modify ename varchar(10), change job job type varchar(20),  drop c1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'type varchar(20),  drop c1' at line 1
+mysql>
+mysql>
+mysql>
+mysql> alter table emp add c2 int, modify ename varchar(10), change job 'job type' varchar(20),  drop c1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''job type' varchar(20),  drop c1' at line 1
+mysql> alter table emp add c2 int, modify ename varchar(10), change job "job type" varchar(20),  drop c1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '"job type" varchar(20),  drop c1' at line 1
+mysql>
+mysql>
+mysql>
+mysql> alter table emp add c2 int, modify ename varchar(10), change job `job type` varchar(20),  drop c1;
+Query OK, 0 rows affected (0.99 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql>
+mysql> desc emp;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| id       | bigint      | NO   | PRI | NULL    |       |
+| ename    | varchar(10) | YES  |     | NULL    |       |
+| job type | varchar(20) | YES  |     | NULL    |       |
+| city     | varchar(20) | YES  |     | Baroda  |       |
+| sal      | int         | YES  |     | NULL    |       |
+| c2       | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> insert into emp values(1,1,1,1,8000,1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> seelct * from emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'seelct * from emp' at line 1
+mysql> select * from emp;
++----+-------+----------+------+------+------+
+| id | ename | job type | city | sal  | c2   |
++----+-------+----------+------+------+------+
+|  1 | 1     | 1        | 1    | 8000 |    1 |
++----+-------+----------+------+------+------+
+1 row in set (0.00 sec)
+
+mysql> insert into emp(id,`job type`) values(2,2);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp;\
++----+-------+----------+--------+------+------+
+| id | ename | job type | city   | sal  | c2   |
++----+-------+----------+--------+------+------+
+|  1 | 1     | 1        | 1      | 8000 |    1 |
+|  2 | NULL  | 2        | Baroda | NULL | NULL |
++----+-------+----------+--------+------+------+
+2 rows in set (0.00 sec)
+
+mysql> insert into emp(id,`job type`, sal) values(3,3, null);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp;
++----+-------+----------+--------+------+------+
+| id | ename | job type | city   | sal  | c2   |
++----+-------+----------+--------+------+------+
+|  1 | 1     | 1        | 1      | 8000 |    1 |
+|  2 | NULL  | 2        | Baroda | NULL | NULL |
+|  3 | NULL  | 3        | Baroda | NULL | NULL |
++----+-------+----------+--------+------+------+
+3 rows in set (0.00 sec)
+
+mysql> insert into emp(id,`job type`, sal) values(3,3, 120);
+ERROR 3819 (HY000): Check constraint 'emp_chk_1' is violated.
+mysql>
+mysql> insert into emp(id,`job type`, sal) values(3,3, 88120);
+ERROR 1062 (23000): Duplicate entry '3' for key 'emp.PRIMARY'
+mysql> insert into emp(id,`job type`, sal) values(4,3, 88120);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp;
++----+-------+----------+--------+-------+------+
+| id | ename | job type | city   | sal   | c2   |
++----+-------+----------+--------+-------+------+
+|  1 | 1     | 1        | 1      |  8000 |    1 |
+|  2 | NULL  | 2        | Baroda |  NULL | NULL |
+|  3 | NULL  | 3        | Baroda |  NULL | NULL |
+|  4 | NULL  | 3        | Baroda | 88120 | NULL |
++----+-------+----------+--------+-------+------+
+4 rows in set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> select * from emp;
+Empty set (0.00 sec)
+
+mysql> desc emp;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| id       | bigint      | NO   | PRI | NULL    |       |
+| ename    | varchar(10) | YES  |     | NULL    |       |
+| job type | varchar(20) | YES  |     | NULL    |       |
+| city     | varchar(20) | YES  |     | Baroda  |       |
+| sal      | int         | YES  |     | NULL    |       |
+| c2       | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> create table a(c1 int, c2 int, total int generated always as (c1+c2) virtual);
+Query OK, 0 rows affected (0.75 sec)
+
+mysql> desc a;
++-------+------+------+-----+---------+-------------------+
+| Field | Type | Null | Key | Default | Extra             |
++-------+------+------+-----+---------+-------------------+
+| c1    | int  | YES  |     | NULL    |                   |
+| c2    | int  | YES  |     | NULL    |                   |
+| total | int  | YES  |     | NULL    | VIRTUAL GENERATED |
++-------+------+------+-----+---------+-------------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into a values(5,5 default);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'default)' at line 1
+mysql> insert into a values(5, 5, default);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>
+mysql>
+mysql> insert into a(c1, c2) values(6,7);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from a;
++------+------+-------+
+| c1   | c2   | total |
++------+------+-------+
+|    5 |    5 |    10 |
+|    6 |    7 |    13 |
++------+------+-------+
+2 rows in set (0.00 sec)
+
+mysql>
+mysql> update a set c1=100 where c1 = 5;
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from a;
++------+------+-------+
+| c1   | c2   | total |
++------+------+-------+
+|  100 |    5 |   105 |
+|    6 |    7 |    13 |
++------+------+-------+
+2 rows in set (0.00 sec)
+
+mysql> desc emp;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| id       | bigint      | NO   | PRI | NULL    |       |
+| ename    | varchar(10) | YES  |     | NULL    |       |
+| job type | varchar(20) | YES  |     | NULL    |       |
+| city     | varchar(20) | YES  |     | Baroda  |       |
+| sal      | int         | YES  |     | NULL    |       |
+| c2       | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> alter table emp change c2 comm int;
+Query OK, 0 rows affected (0.30 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| id       | bigint      | NO   | PRI | NULL    |       |
+| ename    | varchar(10) | YES  |     | NULL    |       |
+| job type | varchar(20) | YES  |     | NULL    |       |
+| city     | varchar(20) | YES  |     | Baroda  |       |
+| sal      | int         | YES  |     | NULL    |       |
+| comm     | int         | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+6 rows in set (0.00 sec)
+
+mysql> alter table emp add total int generated always as (sal + comm) virtual;
+Query OK, 0 rows affected (0.24 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++----------+-------------+------+-----+---------+-------------------+
+| Field    | Type        | Null | Key | Default | Extra             |
++----------+-------------+------+-----+---------+-------------------+
+| id       | bigint      | NO   | PRI | NULL    |                   |
+| ename    | varchar(10) | YES  |     | NULL    |                   |
+| job type | varchar(20) | YES  |     | NULL    |                   |
+| city     | varchar(20) | YES  |     | Baroda  |                   |
+| sal      | int         | YES  |     | NULL    |                   |
+| comm     | int         | YES  |     | NULL    |                   |
+| total    | int         | YES  |     | NULL    | VIRTUAL GENERATED |
++----------+-------------+------+-----+---------+-------------------+
+7 rows in set (0.00 sec)
+
+mysql> alter table emp modify id bigint auto_increment;
+Query OK, 0 rows affected (1.01 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql>
+mysql> desc emp;
++----------+-------------+------+-----+---------+-------------------+
+| Field    | Type        | Null | Key | Default | Extra             |
++----------+-------------+------+-----+---------+-------------------+
+| id       | bigint      | NO   | PRI | NULL    | auto_increment    |
+| ename    | varchar(10) | YES  |     | NULL    |                   |
+| job type | varchar(20) | YES  |     | NULL    |                   |
+| city     | varchar(20) | YES  |     | Baroda  |                   |
+| sal      | int         | YES  |     | NULL    |                   |
+| comm     | int         | YES  |     | NULL    |                   |
+| total    | int         | YES  |     | NULL    | VIRTUAL GENERATED |
++----------+-------------+------+-----+---------+-------------------+
+7 rows in set (0.00 sec)
+
+mysql> alter table emp modify ename varchar(20) not null;
+Query OK, 0 rows affected (0.98 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc emp;
++----------+-------------+------+-----+---------+-------------------+
+| Field    | Type        | Null | Key | Default | Extra             |
++----------+-------------+------+-----+---------+-------------------+
+| id       | bigint      | NO   | PRI | NULL    | auto_increment    |
+| ename    | varchar(20) | NO   |     | NULL    |                   |
+| job type | varchar(20) | YES  |     | NULL    |                   |
+| city     | varchar(20) | YES  |     | Baroda  |                   |
+| sal      | int         | YES  |     | NULL    |                   |
+| comm     | int         | YES  |     | NULL    |                   |
+| total    | int         | YES  |     | NULL    | VIRTUAL GENERATED |
++----------+-------------+------+-----+---------+-------------------+
+7 rows in set (0.00 sec)
+
+mysql> select * from emp;
+Empty set (0.00 sec)
+
+mysql> insert into emp values(default, 'saleel', 'manager',default, 6000, 200, default);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>
+mysql> insert into emp(ename, `job type`,sal, comm) values('saleel', 'manager', 7000, 5200);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp;
++----+--------+----------+--------+------+------+-------+
+| id | ename  | job type | city   | sal  | comm | total |
++----+--------+----------+--------+------+------+-------+
+|  1 | saleel | manager  | Baroda | 6000 |  200 |  6200 |
+|  2 | saleel | manager  | Baroda | 7000 | 5200 | 12200 |
++----+--------+----------+--------+------+------+-------+
+2 rows in set (0.00 sec)
+
+mysql>
+mysql> desc emp;
++----------+-------------+------+-----+---------+-------------------+
+| Field    | Type        | Null | Key | Default | Extra             |
++----------+-------------+------+-----+---------+-------------------+
+| id       | bigint      | NO   | PRI | NULL    | auto_increment    |
+| ename    | varchar(20) | NO   |     | NULL    |                   |
+| job type | varchar(20) | YES  |     | NULL    |                   |
+| city     | varchar(20) | YES  |     | Baroda  |                   |
+| sal      | int         | YES  |     | NULL    |                   |
+| comm     | int         | YES  |     | NULL    |                   |
+| total    | int         | YES  |     | NULL    | VIRTUAL GENERATED |
++----------+-------------+------+-----+---------+-------------------+
+7 rows in set (0.00 sec)
+
+mysql> create table login (loginID int, loginName varchar(20), password varchar(20) invisible);
+Query OK, 0 rows affected (0.88 sec)
+
+mysql> desc login;\
++-----------+-------------+------+-----+---------+-----------+
+| Field     | Type        | Null | Key | Default | Extra     |
++-----------+-------------+------+-----+---------+-----------+
+| loginID   | int         | YES  |     | NULL    |           |
+| loginName | varchar(20) | YES  |     | NULL    |           |
+| password  | varchar(20) | YES  |     | NULL    | INVISIBLE |
++-----------+-------------+------+-----+---------+-----------+
+3 rows in set (0.00 sec)
+
+mysql> insert into login values(1,'saleel','saleel');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> insert into login(loginID, loginName, password) values(1,'saleel','saleel');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into login(loginID, loginName, password) values(2,'sharmin','sharmin');
+Query OK, 1 row affected (0.00 sec)
+
+mysql>
+mysql>
+mysql> select * from login;\
++---------+-----------+
+| loginID | loginName |
++---------+-----------+
+|       1 | saleel    |
+|       2 | sharmin   |
++---------+-----------+
+2 rows in set (0.00 sec)
+
+mysql> select loginID, loginName, password from login;
++---------+-----------+----------+
+| loginID | loginName | password |
++---------+-----------+----------+
+|       1 | saleel    | saleel   |
+|       2 | sharmin   | sharmin  |
++---------+-----------+----------+
+2 rows in set (0.00 sec)
+
+mysql> create table login2(loginId int, loginName varchar(20), password varbinary);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql> create table login2(loginId int, loginName varchar(20), password varbinary(20));
+Query OK, 0 rows affected (0.39 sec)
+
+mysql> insert into login1(loginID, loginName, password) values(1,'saleel','saleel');
+ERROR 1146 (42S02): Table 'db2.login1' doesn't exist
+mysql> insert into login2(loginID, loginName, password) values(1,'saleel','saleel');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into login2(loginID, loginName, password) values(2,'sharmin','sharmin');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> desc login2;
++-----------+---------------+------+-----+---------+-------+
+| Field     | Type          | Null | Key | Default | Extra |
++-----------+---------------+------+-----+---------+-------+
+| loginId   | int           | YES  |     | NULL    |       |
+| loginName | varchar(20)   | YES  |     | NULL    |       |
+| password  | varbinary(20) | YES  |     | NULL    |       |
++-----------+---------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select * from login2;
++---------+-----------+--------------------+
+| loginId | loginName | password           |
++---------+-----------+--------------------+
+|       1 | saleel    | 0x73616C65656C     |
+|       2 | sharmin   | 0x736861726D696E   |
++---------+-----------+--------------------+
+2 rows in set (0.00 sec)
+
+mysql> select loginName, cast(password as char) from login2;
++-----------+------------------------+
+| loginName | cast(password as char) |
++-----------+------------------------+
+| saleel    | saleel                 |
+| sharmin   | sharmin                |
++-----------+------------------------+
+2 rows in set (0.02 sec)
+
+mysql> select loginName, cast(password as varchar) from login2;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varchar) from login2' at line 1
+mysql>
+mysql> create table login2(loginId int, loginName varchar(20), password varbinary invisible);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'invisible)' at line 1
+mysql> create table login3(loginId int, loginName varchar(20), password varbinary invisible);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'invisible)' at line 1
+mysql>
+mysql>
+mysql>
+mysql> create table login3(loginId int, loginName varchar(20), password varbinary invisible);
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  
+				  

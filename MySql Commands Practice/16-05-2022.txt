@@ -1,0 +1,1443 @@
+constraints - restrict data/ to validate data
+
+who activates constraints --> DML [ insert, update and delete only ]
+
+sal int check(sal > 5000)  --->>>   < 5000 
+
+column_level / sructure_level
+
+Primary key
+
+Rules :- 
+One table can have only one primary key
+duplicate not allowed
+NULL not allowed
+
+
+create table a (id int primary key, ename varchar(20));  //column_level constraint
+
+
+create table a1 (id int primary key, ename varchar(20) primary key);  //column_level constraint ERROR
+
+-----------------------------------------------------------------------------
+
+create table b (id int, ename varchar(20), primary key(id));  //table_level constraint
+
+create table b1 (id int, ename varchar(20), primary key(id, ename));  //table_level constraint
+
+
+
+KEY
+PRI
+UNI
+MUL
+
+
+
+unique constraint
+
+rules - duplicate not allowed
+		null allowed
+
+
+create table u(id int primary key, ename varchar(20), phone varchar(10) unique);
+
+
+
+
+create table u1(id int primary key, ename varchar(20), phone varchar(10), unique key(phone));
+
+create table u2(id int primary key, ename varchar(20), phone varchar(10), constraint uni_phone unique key(phone));
+
+
+foreign key
+Rules - duplicate allowed
+		null allowed
+		the value given in foreign key column must be present in primary key column
+	    datatype of PK and FK must be same, column name [ may or may not] differ 
+
+create table dept(deptid int primary key, dname varchar(10));
+
+
+
+create table emp(empid int primary key, ename varchar(10), dno int, constraint fk_deptno foreign key(dno) references dept(deptid));
+
+
+create table address(empid int, city varchar(20), foreign key(empid) references emp(empid))
+
+
+create table phone(empid int, phone varcahr(20));
+
+alter table phone add foreign key(empid) references emp(empid);
+
+a(id, c1) PK
+b(xyz) FK
+
+check
+
+
+
+
+
+dept
+
+emp
+
+address
+
+phone
+
+
+
+dept(deptno PK) -> emp(empno PK), (dno FK)
+
+emp(empno PK) -> address(empno FK)
+
+emp(empno PK) -> phone(empno FK)
+
+
+dept <- emp <- address
+		emp <- phone
+
+dept -> address
+
+
+create parent -> child
+
+DROP child -> parent
+
+---------------------------------------------------------------------
+
+
+SELECT DML - DQL
+
+
+select * from emp;   --> (10 columns, 1000 Row) get everything
+
+select empid, ename from emp; --> (10 columns, 1000 Row) display the 
+								   containts of only 2 columns which (empid, ename)
+
+
+
+
+---------------------------------------------------------------------------
+
+Microsoft Windows [Version 10.0.17763.2928]
+(c) 2018 Microsoft Corporation. All rights reserved.
+
+C:\Users\faculty>mysql --host=localhost --port=3306 --user=root --password=root z
+mysql: [Warning] Using a password on the command line interface can be insecure.
+ERROR 1049 (42000): Unknown database 'z'
+
+C:\Users\faculty>mysql --host=localhost --port=3306 --user=root --password=root
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 13
+Server version: 8.0.29 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| db1                |
+| db2                |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+8 rows in set (0.11 sec)
+
+mysql> use db2
+Database changed
+mysql> exit
+Bye
+
+C:\Users\faculty>mysql --host=localhost --port=3306 --user=root --password=root
+mysql: [Warning] Using a password on the command line interface can be insecure.
+ERROR 2003 (HY000): Can't connect to MySQL server on 'localhost:3306' (10061)
+
+C:\Users\faculty>mysql --host=localhost --port=3306 --user=root --password=root
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 8
+Server version: 8.0.29 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> create database z;\
+Query OK, 1 row affected (0.09 sec)
+
+mysql> use z;
+Database changed
+mysql> create table a (id int primary key, ename varchar(20));
+Query OK, 0 rows affected (1.95 sec)
+
+mysql> create table b (id int, ename varchar(20), primary key(id));
+Query OK, 0 rows affected (0.50 sec)
+
+mysql> desc a;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   | PRI | NULL    |       |
+| ename | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.01 sec)
+
+mysql> desc b;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   | PRI | NULL    |       |
+| ename | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> create table a1 (id int primary key, ename varchar(20) primary key);
+ERROR 1068 (42000): Multiple primary key defined
+mysql> create table b1 (id int, ename varchar(20), primary key(id, ename));
+Query OK, 0 rows affected (0.65 sec)
+
+mysql> desc b1;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   | PRI | NULL    |       |
+| ename | varchar(20) | NO   | PRI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> deac a;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'deac a' at line 1
+mysql> desc a;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   | PRI | NULL    |       |
+| ename | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into a values(1,'saleel');
+Query OK, 1 row affected (0.60 sec)
+
+mysql> select * from a;
++----+--------+
+| id | ename  |
++----+--------+
+|  1 | saleel |
++----+--------+
+1 row in set (0.03 sec)
+
+mysql> insert into a values(1,'sharmin');
+ERROR 1062 (23000): Duplicate entry '1' for key 'a.PRIMARY'
+mysql>
+mysql> insert into a values(null,'sharmin');
+ERROR 1048 (23000): Column 'id' cannot be null
+mysql>
+mysql> desc b1;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   | PRI | NULL    |       |
+| ename | varchar(20) | NO   | PRI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into b1 values(1,'saleel');
+Query OK, 1 row affected (0.01 sec)
+
+mysql> select * from b1l
+    -> ^C
+mysql> select * from b1;
++----+--------+
+| id | ename  |
++----+--------+
+|  1 | saleel |
++----+--------+
+1 row in set (0.00 sec)
+
+mysql> insert into b1 values(2,'saleel');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into b1 values(2,'sharmin');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from b1;
++----+---------+
+| id | ename   |
++----+---------+
+|  1 | saleel  |
+|  2 | saleel  |
+|  2 | sharmin |
++----+---------+
+3 rows in set (0.00 sec)
+
+mysql> insert into b1 values(1,'sharmin');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from b1;
++----+---------+
+| id | ename   |
++----+---------+
+|  1 | saleel  |
+|  1 | sharmin |
+|  2 | saleel  |
+|  2 | sharmin |
++----+---------+
+4 rows in set (0.00 sec)
+
+mysql> insert into b1 values(1,'saleel');
+ERROR 1062 (23000): Duplicate entry '1-saleel' for key 'b1.PRIMARY'
+mysql>
+mysql> create table a2 (id int, ename varchar(20));\
+Query OK, 0 rows affected (0.71 sec)
+
+mysql> desc a2;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | YES  |     | NULL    |       |
+| ename | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> alter table a2 add primary key(id);
+Query OK, 0 rows affected (1.31 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc a2;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   | PRI | NULL    |       |
+| ename | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> alter table a2 drop primary key;
+Query OK, 0 rows affected (0.80 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc a2;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   |     | NULL    |       |
+| ename | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> alter table a2 modify id int null;
+Query OK, 0 rows affected (0.83 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc a2;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | YES  |     | NULL    |       |
+| ename | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql>
+mysql> desc a;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   | PRI | NULL    |       |
+| ename | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from a;
++----+--------+
+| id | ename  |
++----+--------+
+|  1 | saleel |
++----+--------+
+1 row in set (0.00 sec)
+
+mysql> insert int a values(7,'sharmin');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'int a values(7,'sharmin')' at line 1
+mysql> insert into a values(7,'sharmin');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from a;
++----+---------+
+| id | ename   |
++----+---------+
+|  1 | saleel  |
+|  7 | sharmin |
++----+---------+
+2 rows in set (0.00 sec)
+
+mysql> insert into a values(12,'ruhal');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from a;
++----+---------+
+| id | ename   |
++----+---------+
+|  1 | saleel  |
+|  7 | sharmin |
+| 12 | ruhal   |
++----+---------+
+3 rows in set (0.00 sec)
+
+mysql> insert into a values(2,'pooja');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into a values(10,'nikita');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from a;
++----+---------+
+| id | ename   |
++----+---------+
+|  1 | saleel  |
+|  2 | pooja   |
+|  7 | sharmin |
+| 10 | nikita  |
+| 12 | ruhal   |
++----+---------+
+5 rows in set (0.00 sec)
+
+mysql> insert into a values(9,'bandish');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into a values(6,'sangita');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from a;
++----+---------+
+| id | ename   |
++----+---------+
+|  1 | saleel  |
+|  2 | pooja   |
+|  6 | sangita |
+|  7 | sharmin |
+|  9 | bandish |
+| 10 | nikita  |
+| 12 | ruhal   |
++----+---------+
+7 rows in set (0.00 sec)
+
+mysql> desc a;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   | PRI | NULL    |       |
+| ename | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> create table u(id int primary key, ename varchar(20), phone varcahr(10) unique);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varcahr(10) unique)' at line 1
+mysql> create table u(id int primary key, ename varchar(20), phone varchar(10) unique);
+Query OK, 0 rows affected (0.49 sec)
+
+mysql>
+mysql> desc u;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   | PRI | NULL    |       |
+| ename | varchar(20) | YES  |     | NULL    |       |
+| phone | varchar(10) | YES  | UNI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> create table u1(id int primary key, ename varchar(20), phone varchar(10), unique key(phone));
+Query OK, 0 rows affected (0.43 sec)
+
+mysql> create table u2(id int primary key, ename varchar(20), phone varchar(10), constraint uni_phone unique key(phone));
+Query OK, 0 rows affected (0.43 sec)
+
+mysql> desc u;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   | PRI | NULL    |       |
+| ename | varchar(20) | YES  |     | NULL    |       |
+| phone | varchar(10) | YES  | UNI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc u1;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   | PRI | NULL    |       |
+| ename | varchar(20) | YES  |     | NULL    |       |
+| phone | varchar(10) | YES  | UNI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc u2;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   | PRI | NULL    |       |
+| ename | varchar(20) | YES  |     | NULL    |       |
+| phone | varchar(10) | YES  | UNI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> select table_name, constraint_name, constraint_type from information_schema.table_constraints where table_schema='Z';
++------------+-----------------+-----------------+
+| TABLE_NAME | CONSTRAINT_NAME | CONSTRAINT_TYPE |
++------------+-----------------+-----------------+
+| a          | PRIMARY         | PRIMARY KEY     |
+| b          | PRIMARY         | PRIMARY KEY     |
+| b1         | PRIMARY         | PRIMARY KEY     |
+| u          | phone           | UNIQUE          |
+| u          | PRIMARY         | PRIMARY KEY     |
+| u1         | phone           | UNIQUE          |
+| u1         | PRIMARY         | PRIMARY KEY     |
+| u2         | PRIMARY         | PRIMARY KEY     |
+| u2         | uni_phone       | UNIQUE          |
++------------+-----------------+-----------------+
+9 rows in set (0.03 sec)
+
+mysql> desc u1;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   | PRI | NULL    |       |
+| ename | varchar(20) | YES  |     | NULL    |       |
+| phone | varchar(10) | YES  | UNI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc u2;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   | PRI | NULL    |       |
+| ename | varchar(20) | YES  |     | NULL    |       |
+| phone | varchar(10) | YES  | UNI | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table u1 drop index phone;
+Query OK, 0 rows affected (0.15 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table u2 drop index uni_phone;
+Query OK, 0 rows affected (0.14 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select table_name, constraint_name, constraint_type from information_schema.table_constraints where table_schema='Z';
++------------+-----------------+-----------------+
+| TABLE_NAME | CONSTRAINT_NAME | CONSTRAINT_TYPE |
++------------+-----------------+-----------------+
+| a          | PRIMARY         | PRIMARY KEY     |
+| b          | PRIMARY         | PRIMARY KEY     |
+| b1         | PRIMARY         | PRIMARY KEY     |
+| u          | phone           | UNIQUE          |
+| u          | PRIMARY         | PRIMARY KEY     |
+| u1         | PRIMARY         | PRIMARY KEY     |
+| u2         | PRIMARY         | PRIMARY KEY     |
++------------+-----------------+-----------------+
+7 rows in set (0.00 sec)
+
+mysql> desc u1
+    -> ;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| id    | int         | NO   | PRI | NULL    |       |
+| ename | varchar(20) | YES  |     | NULL    |       |
+| phone | varchar(10) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> alter table u1 add unique key(phone);
+Query OK, 0 rows affected (0.15 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table u2 add constraint _user_defined _uni_pohone unique key(phone);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '_uni_pohone unique key(phone)' at line 1
+mysql> alter table u2 add constraint user_defined _uni_pohone unique key(phone);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '_uni_pohone unique key(phone)' at line 1
+mysql> alter table u2 add constraint _user_defined_uni_phone unique key(phone);
+Query OK, 0 rows affected (0.19 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select table_name, constraint_name, constraint_type from information_schema.table_constraints where table_schema='Z';
++------------+-------------------------+-----------------+
+| TABLE_NAME | CONSTRAINT_NAME         | CONSTRAINT_TYPE |
++------------+-------------------------+-----------------+
+| a          | PRIMARY                 | PRIMARY KEY     |
+| b          | PRIMARY                 | PRIMARY KEY     |
+| b1         | PRIMARY                 | PRIMARY KEY     |
+| u          | phone                   | UNIQUE          |
+| u          | PRIMARY                 | PRIMARY KEY     |
+| u1         | phone                   | UNIQUE          |
+| u1         | PRIMARY                 | PRIMARY KEY     |
+| u2         | _user_defined_uni_phone | UNIQUE          |
+| u2         | PRIMARY                 | PRIMARY KEY     |
++------------+-------------------------+-----------------+
+9 rows in set (0.00 sec)
+
+mysql>
+mysql> create table dept(deptid int primary key, dname varchar(10));
+Query OK, 0 rows affected (0.69 sec)
+
+mysql> create table emp(empid int primary key, ename varchar(10), dno int, constraint fk_deptno foreign key(dno) references dept(deptid));
+Query OK, 0 rows affected (0.91 sec)
+
+mysql>
+mysql> select table_name, constraint_name, constraint_type from information_schema.table_constraints where table_schema='Z';
++------------+-------------------------+-----------------+
+| TABLE_NAME | CONSTRAINT_NAME         | CONSTRAINT_TYPE |
++------------+-------------------------+-----------------+
+| a          | PRIMARY                 | PRIMARY KEY     |
+| b          | PRIMARY                 | PRIMARY KEY     |
+| b1         | PRIMARY                 | PRIMARY KEY     |
+| dept       | PRIMARY                 | PRIMARY KEY     |
+| emp        | PRIMARY                 | PRIMARY KEY     |
+| emp        | fk_deptno               | FOREIGN KEY     |
+| u          | phone                   | UNIQUE          |
+| u          | PRIMARY                 | PRIMARY KEY     |
+| u1         | phone                   | UNIQUE          |
+| u1         | PRIMARY                 | PRIMARY KEY     |
+| u2         | _user_defined_uni_phone | UNIQUE          |
+| u2         | PRIMARY                 | PRIMARY KEY     |
++------------+-------------------------+-----------------+
+12 rows in set (0.00 sec)
+
+mysql> desc emp;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| empid | int         | NO   | PRI | NULL    |       |
+| ename | varchar(10) | YES  |     | NULL    |       |
+| dno   | int         | YES  | MUL | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> desc dept;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| deptid | int         | NO   | PRI | NULL    |       |
+| dname  | varchar(10) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from dept;
+Empty set (0.00 sec)
+
+mysql> select * from dept
+    -> ^C
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> select * from dept;
+Empty set (0.00 sec)
+
+mysql> select * from emp;
+Empty set (0.00 sec)
+
+mysql> insert into emp values(1,'saleel',10);\
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`z`.`emp`, CONSTRAINT `fk_deptno` FOREIGN KEY (`dno`) REFERENCES `dept` (`deptid`))
+mysql>
+mysql>
+mysql>
+mysql> insert into dept values(10,'hrd');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into dept values(20,'sales');
+Query OK, 1 row affected (0.00 sec)
+
+mysql>
+mysql>
+mysql> select * from dept;
++--------+-------+
+| deptid | dname |
++--------+-------+
+|     10 | hrd   |
+|     20 | sales |
++--------+-------+
+2 rows in set (0.00 sec)
+
+mysql> insert into emp values(1,'saleel', 10);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into emp values(2,'sharmin', 10);
+Query OK, 1 row affected (0.00 sec)
+
+mysql>
+mysql>
+mysql> insert into emp values(3,'omkar', null);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into emp values(4,'ramesh', null);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from dept;
++--------+-------+
+| deptid | dname |
++--------+-------+
+|     10 | hrd   |
+|     20 | sales |
++--------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from emp;
++-------+---------+------+
+| empid | ename   | dno  |
++-------+---------+------+
+|     1 | saleel  |   10 |
+|     2 | sharmin |   10 |
+|     3 | omkar   | NULL |
+|     4 | ramesh  | NULL |
++-------+---------+------+
+4 rows in set (0.00 sec)
+
+mysql> create table address(empid int, city varchar(20), foreign key(empid) references emp(empid))
+    -> ;
+Query OK, 0 rows affected (1.15 sec)
+
+mysql> select * from address;\
+Empty set (0.00 sec)
+
+mysql> insert into address values(10,'pune');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`z`.`address`, CONSTRAINT `address_ibfk_1` FOREIGN KEY (`empid`) REFERENCES `emp` (`empid`))
+mysql>
+mysql> insert into address values(1,'pune');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from dept;
++--------+-------+
+| deptid | dname |
++--------+-------+
+|     10 | hrd   |
+|     20 | sales |
++--------+-------+
+2 rows in set (0.00 sec)
+
+mysql> select * from emp;
++-------+---------+------+
+| empid | ename   | dno  |
++-------+---------+------+
+|     1 | saleel  |   10 |
+|     2 | sharmin |   10 |
+|     3 | omkar   | NULL |
+|     4 | ramesh  | NULL |
++-------+---------+------+
+4 rows in set (0.00 sec)
+
+mysql> select * from address;
++-------+------+
+| empid | city |
++-------+------+
+|     1 | pune |
++-------+------+
+1 row in set (0.00 sec)
+
+mysql> create table phone(empid int, phone varcahr(20));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'varcahr(20))' at line 1
+mysql> create table phone(empid int, phone varchar(20));
+Query OK, 0 rows affected (0.48 sec)
+
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> desc phone;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| empid | int         | YES  |     | NULL    |       |
+| phone | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> alter table phone add foreign key(empid) references emp(empid);
+Query OK, 0 rows affected (1.78 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc phone;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| empid | int         | YES  | MUL | NULL    |       |
+| phone | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql>
+mysql> select table_name, constraint_name, constraint_type from information_schema.table_constraints where table_schema='Z';
++------------+-------------------------+-----------------+
+| TABLE_NAME | CONSTRAINT_NAME         | CONSTRAINT_TYPE |
++------------+-------------------------+-----------------+
+| a          | PRIMARY                 | PRIMARY KEY     |
+| address    | address_ibfk_1          | FOREIGN KEY     |
+| b          | PRIMARY                 | PRIMARY KEY     |
+| b1         | PRIMARY                 | PRIMARY KEY     |
+| dept       | PRIMARY                 | PRIMARY KEY     |
+| emp        | PRIMARY                 | PRIMARY KEY     |
+| emp        | fk_deptno               | FOREIGN KEY     |
+| phone      | phone_ibfk_1            | FOREIGN KEY     |
+| u          | phone                   | UNIQUE          |
+| u          | PRIMARY                 | PRIMARY KEY     |
+| u1         | phone                   | UNIQUE          |
+| u1         | PRIMARY                 | PRIMARY KEY     |
+| u2         | _user_defined_uni_phone | UNIQUE          |
+| u2         | PRIMARY                 | PRIMARY KEY     |
++------------+-------------------------+-----------------+
+14 rows in set (0.00 sec)
+
+mysql> desc address;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| empid | int         | YES  | MUL | NULL    |       |
+| city  | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> alter table address drop foreign key empid;
+ERROR 1091 (42000): Can't DROP 'empid'; check that column/key exists
+mysql>
+mysql> alter table address drop foreign key address_ibfk_1;
+Query OK, 0 rows affected (0.10 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select table_name, constraint_name, constraint_type from information_schema.table_constraints where table_schema='Z';
++------------+-------------------------+-----------------+
+| TABLE_NAME | CONSTRAINT_NAME         | CONSTRAINT_TYPE |
++------------+-------------------------+-----------------+
+| a          | PRIMARY                 | PRIMARY KEY     |
+| b          | PRIMARY                 | PRIMARY KEY     |
+| b1         | PRIMARY                 | PRIMARY KEY     |
+| dept       | PRIMARY                 | PRIMARY KEY     |
+| emp        | PRIMARY                 | PRIMARY KEY     |
+| emp        | fk_deptno               | FOREIGN KEY     |
+| phone      | phone_ibfk_1            | FOREIGN KEY     |
+| u          | phone                   | UNIQUE          |
+| u          | PRIMARY                 | PRIMARY KEY     |
+| u1         | phone                   | UNIQUE          |
+| u1         | PRIMARY                 | PRIMARY KEY     |
+| u2         | _user_defined_uni_phone | UNIQUE          |
+| u2         | PRIMARY                 | PRIMARY KEY     |
++------------+-------------------------+-----------------+
+13 rows in set (0.00 sec)
+
+mysql> desc address;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| empid | int         | YES  | MUL | NULL    |       |
+| city  | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> alter table address modify empid int;
+Query OK, 0 rows affected (0.09 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc address;
++-------+-------------+------+-----+---------+-------+
+| Field | Type        | Null | Key | Default | Extra |
++-------+-------------+------+-----+---------+-------+
+| empid | int         | YES  | MUL | NULL    |       |
+| city  | varchar(20) | YES  |     | NULL    |       |
++-------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> drop table dept;
+ERROR 3730 (HY000): Cannot drop table 'dept' referenced by a foreign key constraint 'fk_deptno' on table 'emp'.
+mysql> drop table emp;
+ERROR 3730 (HY000): Cannot drop table 'emp' referenced by a foreign key constraint 'phone_ibfk_1' on table 'phone'.
+mysql>
+mysql>
+mysql>
+mysql> drop  table address;
+Query OK, 0 rows affected (0.16 sec)
+
+mysql> drop  table phone;
+Query OK, 0 rows affected (0.21 sec)
+
+mysql> drop  table dept;
+ERROR 3730 (HY000): Cannot drop table 'dept' referenced by a foreign key constraint 'fk_deptno' on table 'emp'.
+mysql>
+mysql>
+mysql>
+mysql> drop  table emp;
+Query OK, 0 rows affected (0.24 sec)
+
+mysql> drop  table dept;
+Query OK, 0 rows affected (0.19 sec)
+
+mysql> use db1;
+Database changed
+mysql> show tables;
++---------------------+
+| Tables_in_db1       |
++---------------------+
+| a                   |
+| agent               |
+| andor               |
+| b                   |
+| blanktablea         |
+| blanktableb         |
+| blog                |
+| bonus               |
+| books               |
+| candidate           |
+| client              |
+| coalesce            |
+| comments            |
+| company             |
+| customer            |
+| customers           |
+| demodept1           |
+| demodept2           |
+| dept                |
+| dept1               |
+| docs                |
+| dummy               |
+| duplicate           |
+| emp                 |
+| emp1                |
+| emp2                |
+| emp_attendance      |
+| emp_cards           |
+| emp_phone           |
+| empj                |
+| envelope            |
+| food                |
+| hobby               |
+| item                |
+| key_parts           |
+| licence             |
+| location            |
+| mass_table          |
+| menucard            |
+| nearest             |
+| new                 |
+| newbooks            |
+| nullif              |
+| numberstring        |
+| ord                 |
+| orders              |
+| plumber             |
+| plumber_service_map |
+| points              |
+| price               |
+| product             |
+| products            |
+| quarter_revenue     |
+| r                   |
+| r1                  |
+| r2                  |
+| races               |
+| regexpr             |
+| replacedept         |
+| revenue             |
+| runners             |
+| sales               |
+| sales_channel       |
+| salespeople         |
+| salesperson         |
+| salgrade            |
+| service             |
+| seta                |
+| setb                |
+| softdrink           |
+| sort                |
+| stadium             |
+| states              |
+| station             |
+| status              |
+| stringnumber        |
+| tablea              |
+| tableaa             |
+| tableb              |
+| tablebb             |
+| tasks               |
+| temp1               |
+| transactions        |
+| vote_response       |
+| votes               |
+| warehouse           |
+| z                   |
++---------------------+
+87 rows in set (0.00 sec)
+
+mysql> desc emp;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| EMPNO     | int         | NO   | PRI | NULL    |       |
+| ENAME     | varchar(12) | YES  |     | NULL    |       |
+| GENDER    | char(1)     | YES  |     | NULL    |       |
+| JOB       | varchar(20) | YES  |     | NULL    |       |
+| MGR       | int         | YES  | MUL | NULL    |       |
+| HIREDATE  | date        | YES  |     | NULL    |       |
+| SAL       | int         | YES  |     | NULL    |       |
+| COMM      | int         | YES  |     | NULL    |       |
+| DEPTNO    | int         | NO   | MUL | NULL    |       |
+| BONUSID   | int         | YES  |     | NULL    |       |
+| USER NAME | varchar(20) | YES  |     | NULL    |       |
+| PWD       | varchar(20) | YES  |     | NULL    |       |
+| PHONE     | varchar(45) | YES  |     | NULL    |       |
+| isActive  | tinyint(1)  | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+14 rows in set (0.00 sec)
+
+mysql> desc dept;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| DEPTNO    | int         | NO   | PRI | NULL    |       |
+| DNAME     | varchar(12) | YES  |     | NULL    |       |
+| LOC       | varchar(10) | YES  |     | NULL    |       |
+| PWD       | varchar(20) | YES  |     | NULL    |       |
+| STARTEDON | varchar(10) | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select  * from emp;
++-------+----------+--------+---------------------+------+------------+------+------+--------+---------+--------------+------------+------------+----------+
+| EMPNO | ENAME    | GENDER | JOB                 | MGR  | HIREDATE   | SAL  | COMM | DEPTNO | BONUSID | USER NAME    | PWD        | PHONE      | isActive |
++-------+----------+--------+---------------------+------+------------+------+------+--------+---------+--------------+------------+------------+----------+
+|  6001 | GITA     | F      | Compliance officers | 7920 | 1981-07-19 | 1750 | NULL |     30 |       1 | GITA         | sales@2017 | NULL       |        1 |
+|  6129 | VRUSHALI | F      | Compliance officers | 7920 | 1981-07-19 | 1750 | NULL |     50 |       1 | VRUSHALI     | PUN@8877   | NULL       |        1 |
+|  6473 | SHARMIN  | F      | Public Relation     | 7920 | 1981-07-19 | 1750 | NULL |     20 |       1 | SHARMIN      | a12recmpm  | NULL       |        1 |
+|  6781 | BANDISH  | F      | Public Relation     | 7920 | 1981-07-19 | 1750 | NULL |     20 |       1 | BANDISH      | a12recmpm  | NULL       |        1 |
+|  7369 | SMITH    | M      | CLERK               | 7902 | 1980-12-17 |  800 | NULL |     20 |       2 | TRITONE      | a12recmpm  | 7032300023 |        0 |
+|  7415 | AARAV    | M      | CLERK               | 7902 | 1981-12-31 | 3350 | NULL |     10 |    NULL | AARAV        | NULL       | 7032300084 |        0 |
+|  7421 | THOMAS   | M      | CLERK               | 7920 | 1981-07-19 | 1750 | NULL |     10 |       1 | THOMAS       | r50mpm     | 7032300011 |        0 |
+|  7499 | ALLEN    | M      | SALESMAN            | 7698 | 1981-02-20 | 1600 |  300 |     30 |       4 | ALWAYS TESTE | sales@2017 | 7032300096 |        1 |
+|  7521 | WARD     | M      | SALESMAN            | 7698 | 1981-02-22 | 1250 |  500 |     30 |       1 | WARD         | sales@2017 | 7132300034 |        1 |
+|  7566 | JONES    | M      | MANAGER             | 7839 | 1981-04-02 | 2975 | NULL |     20 |       4 | HONEYCOMB    | a12recmpm  | 7132300039 |        1 |
+|  7654 | MARTIN   | M      | SALESMAN            | 7698 | 1981-09-28 | 1250 | 1400 |     30 |       6 | LIFE RACER   | sales@2017 | 7132300050 |        1 |
+|  7698 | BLAKE    | M      | MANAGER             | 7839 | 1981-05-01 | 2850 | NULL |     30 |       1 | BIG BEN      | sales@2017 | 7132300027 |        1 |
+|  7782 | CLARK    | M      | MANAGER             | 7839 | 1981-06-09 | 2450 | NULL |     10 |       3 | CLARK        | r50mpm     | 7032300001 |        1 |
+|  7788 | SCOTT    | M      | ANALYST             | 7566 | 1982-12-09 | 3000 | NULL |     20 |       3 | WHITE SAND   | a12recmpm  | NULL       |        1 |
+|  7839 | KING     | M      | PRESIDENT           | NULL | 1981-11-17 | 5000 | NULL |     10 |       1 | KING         | r50mpm     | 7132300081 |        1 |
+|  7840 | FRED     | M      | vice PRESIDENT      | 7839 | 1983-08-09 | 5000 | NULL |     20 |       1 | SAND STONE   | a12recmpm  | NULL       |        1 |
+|  7844 | TURNER   | M      | SALESMAN            | 7698 | 1981-09-08 | 1500 |    0 |     30 |       5 | SAND DUST    | sales@2017 | NULL       |        1 |
+|  7876 | ADAMS    | M      | CLERK               | 7788 | 1983-01-12 | 1100 | NULL |     20 |       1 | CRAZY ANYONE | a12recmpm  | 7132300086 |        1 |
+|  7900 | JAMES    | M      | CLERK               | 7698 | 1981-12-03 |  950 | NULL |     30 |       2 | CRAZY LEADER | sales@2017 | 7132300042 |        1 |
+|  7902 | FORD     | M      | ANALYST             | 7566 | 1981-12-03 | 3000 | NULL |     20 |       4 | CONBRIO      | a12recmpm  | NULL       |        0 |
+|  7919 | HOFFMAN  | M      | MANAGER             | 7566 | 1982-03-24 | 4150 | NULL |     30 |       3 | INTERVAL     | sales@2017 | NULL       |        1 |
+|  7920 | GRASS    | M      | SALESMAN            | 7919 | 1980-02-14 | 2575 | 2700 |     30 |       5 | GRASS        | sales@2017 | NULL       |        1 |
+|  7934 | MILLER   | M      | CLERK               | 7782 | 1982-01-23 | 1300 | NULL |     10 |       2 | QUARTERNOTE  | r50mpm     | 7132300055 |        0 |
+|  7945 | AARUSH   | M      | SALESMAN            | 7902 | 1980-02-14 | 1350 | 2700 |     30 |    NULL | AARUSH       | ABCDEF     | NULL       |        0 |
+|  7949 | ALEX     | M      | MANAGER             | 7698 | 1982-01-24 | 1250 |  500 |     30 |       5 | QUARTERREST  | sales@2017 | 7156567183 |        1 |
+|  8433 | NATASHA  | F      | CLERK               | 7920 | 1981-07-19 | 1750 | NULL |     30 |       1 | NATASHA      | sales@2017 | NULL       |        1 |
+|  9400 | SANGITA  | F      | Compliance officers | 7920 | 1981-07-19 | 1750 | NULL |     50 |       1 | SANGITA      | NULL       | NULL       |        1 |
+|  9473 | SUPRIYA  | F      | ANALYST             | 7920 | 1981-07-19 | 1750 | NULL |     50 |       1 | SUPRIYA      | XYZ@1234   | NULL       |        1 |
++-------+----------+--------+---------------------+------+------------+------+------+--------+---------+--------------+------------+------------+----------+
+28 rows in set (0.07 sec)
+
+mysql> use z;
+Database changed
+mysql> drop table a; create table a(id int, isActive boolean);
+Query OK, 0 rows affected (0.38 sec)
+
+Query OK, 0 rows affected (0.56 sec)
+
+mysql>
+mysql> desc a;
++----------+------------+------+-----+---------+-------+
+| Field    | Type       | Null | Key | Default | Extra |
++----------+------------+------+-----+---------+-------+
+| id       | int        | YES  |     | NULL    |       |
+| isActive | tinyint(1) | YES  |     | NULL    |       |
++----------+------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> drop table a;
+Query OK, 0 rows affected (0.45 sec)
+
+mysql> use db1;
+Database changed
+mysql> select  * from emp;
++-------+----------+--------+---------------------+------+------------+------+------+--------+---------+--------------+------------+------------+----------+
+| EMPNO | ENAME    | GENDER | JOB                 | MGR  | HIREDATE   | SAL  | COMM | DEPTNO | BONUSID | USER NAME    | PWD        | PHONE      | isActive |
++-------+----------+--------+---------------------+------+------------+------+------+--------+---------+--------------+------------+------------+----------+
+|  6001 | GITA     | F      | Compliance officers | 7920 | 1981-07-19 | 1750 | NULL |     30 |       1 | GITA         | sales@2017 | NULL       |        1 |
+|  6129 | VRUSHALI | F      | Compliance officers | 7920 | 1981-07-19 | 1750 | NULL |     50 |       1 | VRUSHALI     | PUN@8877   | NULL       |        1 |
+|  6473 | SHARMIN  | F      | Public Relation     | 7920 | 1981-07-19 | 1750 | NULL |     20 |       1 | SHARMIN      | a12recmpm  | NULL       |        1 |
+|  6781 | BANDISH  | F      | Public Relation     | 7920 | 1981-07-19 | 1750 | NULL |     20 |       1 | BANDISH      | a12recmpm  | NULL       |        1 |
+|  7369 | SMITH    | M      | CLERK               | 7902 | 1980-12-17 |  800 | NULL |     20 |       2 | TRITONE      | a12recmpm  | 7032300023 |        0 |
+|  7415 | AARAV    | M      | CLERK               | 7902 | 1981-12-31 | 3350 | NULL |     10 |    NULL | AARAV        | NULL       | 7032300084 |        0 |
+|  7421 | THOMAS   | M      | CLERK               | 7920 | 1981-07-19 | 1750 | NULL |     10 |       1 | THOMAS       | r50mpm     | 7032300011 |        0 |
+|  7499 | ALLEN    | M      | SALESMAN            | 7698 | 1981-02-20 | 1600 |  300 |     30 |       4 | ALWAYS TESTE | sales@2017 | 7032300096 |        1 |
+|  7521 | WARD     | M      | SALESMAN            | 7698 | 1981-02-22 | 1250 |  500 |     30 |       1 | WARD         | sales@2017 | 7132300034 |        1 |
+|  7566 | JONES    | M      | MANAGER             | 7839 | 1981-04-02 | 2975 | NULL |     20 |       4 | HONEYCOMB    | a12recmpm  | 7132300039 |        1 |
+|  7654 | MARTIN   | M      | SALESMAN            | 7698 | 1981-09-28 | 1250 | 1400 |     30 |       6 | LIFE RACER   | sales@2017 | 7132300050 |        1 |
+|  7698 | BLAKE    | M      | MANAGER             | 7839 | 1981-05-01 | 2850 | NULL |     30 |       1 | BIG BEN      | sales@2017 | 7132300027 |        1 |
+|  7782 | CLARK    | M      | MANAGER             | 7839 | 1981-06-09 | 2450 | NULL |     10 |       3 | CLARK        | r50mpm     | 7032300001 |        1 |
+|  7788 | SCOTT    | M      | ANALYST             | 7566 | 1982-12-09 | 3000 | NULL |     20 |       3 | WHITE SAND   | a12recmpm  | NULL       |        1 |
+|  7839 | KING     | M      | PRESIDENT           | NULL | 1981-11-17 | 5000 | NULL |     10 |       1 | KING         | r50mpm     | 7132300081 |        1 |
+|  7840 | FRED     | M      | vice PRESIDENT      | 7839 | 1983-08-09 | 5000 | NULL |     20 |       1 | SAND STONE   | a12recmpm  | NULL       |        1 |
+|  7844 | TURNER   | M      | SALESMAN            | 7698 | 1981-09-08 | 1500 |    0 |     30 |       5 | SAND DUST    | sales@2017 | NULL       |        1 |
+|  7876 | ADAMS    | M      | CLERK               | 7788 | 1983-01-12 | 1100 | NULL |     20 |       1 | CRAZY ANYONE | a12recmpm  | 7132300086 |        1 |
+|  7900 | JAMES    | M      | CLERK               | 7698 | 1981-12-03 |  950 | NULL |     30 |       2 | CRAZY LEADER | sales@2017 | 7132300042 |        1 |
+|  7902 | FORD     | M      | ANALYST             | 7566 | 1981-12-03 | 3000 | NULL |     20 |       4 | CONBRIO      | a12recmpm  | NULL       |        0 |
+|  7919 | HOFFMAN  | M      | MANAGER             | 7566 | 1982-03-24 | 4150 | NULL |     30 |       3 | INTERVAL     | sales@2017 | NULL       |        1 |
+|  7920 | GRASS    | M      | SALESMAN            | 7919 | 1980-02-14 | 2575 | 2700 |     30 |       5 | GRASS        | sales@2017 | NULL       |        1 |
+|  7934 | MILLER   | M      | CLERK               | 7782 | 1982-01-23 | 1300 | NULL |     10 |       2 | QUARTERNOTE  | r50mpm     | 7132300055 |        0 |
+|  7945 | AARUSH   | M      | SALESMAN            | 7902 | 1980-02-14 | 1350 | 2700 |     30 |    NULL | AARUSH       | ABCDEF     | NULL       |        0 |
+|  7949 | ALEX     | M      | MANAGER             | 7698 | 1982-01-24 | 1250 |  500 |     30 |       5 | QUARTERREST  | sales@2017 | 7156567183 |        1 |
+|  8433 | NATASHA  | F      | CLERK               | 7920 | 1981-07-19 | 1750 | NULL |     30 |       1 | NATASHA      | sales@2017 | NULL       |        1 |
+|  9400 | SANGITA  | F      | Compliance officers | 7920 | 1981-07-19 | 1750 | NULL |     50 |       1 | SANGITA      | NULL       | NULL       |        1 |
+|  9473 | SUPRIYA  | F      | ANALYST             | 7920 | 1981-07-19 | 1750 | NULL |     50 |       1 | SUPRIYA      | XYZ@1234   | NULL       |        1 |
++-------+----------+--------+---------------------+------+------------+------+------+--------+---------+--------------+------------+------------+----------+
+28 rows in set (0.00 sec)
+
+mysql> select ename, job from emp;
++----------+---------------------+
+| ename    | job                 |
++----------+---------------------+
+| GITA     | Compliance officers |
+| VRUSHALI | Compliance officers |
+| SHARMIN  | Public Relation     |
+| BANDISH  | Public Relation     |
+| SMITH    | CLERK               |
+| AARAV    | CLERK               |
+| THOMAS   | CLERK               |
+| ALLEN    | SALESMAN            |
+| WARD     | SALESMAN            |
+| JONES    | MANAGER             |
+| MARTIN   | SALESMAN            |
+| BLAKE    | MANAGER             |
+| CLARK    | MANAGER             |
+| SCOTT    | ANALYST             |
+| KING     | PRESIDENT           |
+| FRED     | vice PRESIDENT      |
+| TURNER   | SALESMAN            |
+| ADAMS    | CLERK               |
+| JAMES    | CLERK               |
+| FORD     | ANALYST             |
+| HOFFMAN  | MANAGER             |
+| GRASS    | SALESMAN            |
+| MILLER   | CLERK               |
+| AARUSH   | SALESMAN            |
+| ALEX     | MANAGER             |
+| NATASHA  | CLERK               |
+| SANGITA  | Compliance officers |
+| SUPRIYA  | ANALYST             |
++----------+---------------------+
+28 rows in set (0.00 sec)
+
+mysql> select ename,ENAME, job from emp;
++----------+----------+---------------------+
+| ename    | ENAME    | job                 |
++----------+----------+---------------------+
+| GITA     | GITA     | Compliance officers |
+| VRUSHALI | VRUSHALI | Compliance officers |
+| SHARMIN  | SHARMIN  | Public Relation     |
+| BANDISH  | BANDISH  | Public Relation     |
+| SMITH    | SMITH    | CLERK               |
+| AARAV    | AARAV    | CLERK               |
+| THOMAS   | THOMAS   | CLERK               |
+| ALLEN    | ALLEN    | SALESMAN            |
+| WARD     | WARD     | SALESMAN            |
+| JONES    | JONES    | MANAGER             |
+| MARTIN   | MARTIN   | SALESMAN            |
+| BLAKE    | BLAKE    | MANAGER             |
+| CLARK    | CLARK    | MANAGER             |
+| SCOTT    | SCOTT    | ANALYST             |
+| KING     | KING     | PRESIDENT           |
+| FRED     | FRED     | vice PRESIDENT      |
+| TURNER   | TURNER   | SALESMAN            |
+| ADAMS    | ADAMS    | CLERK               |
+| JAMES    | JAMES    | CLERK               |
+| FORD     | FORD     | ANALYST             |
+| HOFFMAN  | HOFFMAN  | MANAGER             |
+| GRASS    | GRASS    | SALESMAN            |
+| MILLER   | MILLER   | CLERK               |
+| AARUSH   | AARUSH   | SALESMAN            |
+| ALEX     | ALEX     | MANAGER             |
+| NATASHA  | NATASHA  | CLERK               |
+| SANGITA  | SANGITA  | Compliance officers |
+| SUPRIYA  | SUPRIYA  | ANALYST             |
++----------+----------+---------------------+
+28 rows in set (0.00 sec)
+
+mysql> select ename,job, sal from emp;
++----------+---------------------+------+
+| ename    | job                 | sal  |
++----------+---------------------+------+
+| GITA     | Compliance officers | 1750 |
+| VRUSHALI | Compliance officers | 1750 |
+| SHARMIN  | Public Relation     | 1750 |
+| BANDISH  | Public Relation     | 1750 |
+| SMITH    | CLERK               |  800 |
+| AARAV    | CLERK               | 3350 |
+| THOMAS   | CLERK               | 1750 |
+| ALLEN    | SALESMAN            | 1600 |
+| WARD     | SALESMAN            | 1250 |
+| JONES    | MANAGER             | 2975 |
+| MARTIN   | SALESMAN            | 1250 |
+| BLAKE    | MANAGER             | 2850 |
+| CLARK    | MANAGER             | 2450 |
+| SCOTT    | ANALYST             | 3000 |
+| KING     | PRESIDENT           | 5000 |
+| FRED     | vice PRESIDENT      | 5000 |
+| TURNER   | SALESMAN            | 1500 |
+| ADAMS    | CLERK               | 1100 |
+| JAMES    | CLERK               |  950 |
+| FORD     | ANALYST             | 3000 |
+| HOFFMAN  | MANAGER             | 4150 |
+| GRASS    | SALESMAN            | 2575 |
+| MILLER   | CLERK               | 1300 |
+| AARUSH   | SALESMAN            | 1350 |
+| ALEX     | MANAGER             | 1250 |
+| NATASHA  | CLERK               | 1750 |
+| SANGITA  | Compliance officers | 1750 |
+| SUPRIYA  | ANALYST             | 1750 |
++----------+---------------------+------+
+28 rows in set (0.00 sec)
+
+mysql> select ename EmployeeName ,job, sal Salary from emp;
++--------------+---------------------+--------+
+| EmployeeName | job                 | Salary |
++--------------+---------------------+--------+
+| GITA         | Compliance officers |   1750 |
+| VRUSHALI     | Compliance officers |   1750 |
+| SHARMIN      | Public Relation     |   1750 |
+| BANDISH      | Public Relation     |   1750 |
+| SMITH        | CLERK               |    800 |
+| AARAV        | CLERK               |   3350 |
+| THOMAS       | CLERK               |   1750 |
+| ALLEN        | SALESMAN            |   1600 |
+| WARD         | SALESMAN            |   1250 |
+| JONES        | MANAGER             |   2975 |
+| MARTIN       | SALESMAN            |   1250 |
+| BLAKE        | MANAGER             |   2850 |
+| CLARK        | MANAGER             |   2450 |
+| SCOTT        | ANALYST             |   3000 |
+| KING         | PRESIDENT           |   5000 |
+| FRED         | vice PRESIDENT      |   5000 |
+| TURNER       | SALESMAN            |   1500 |
+| ADAMS        | CLERK               |   1100 |
+| JAMES        | CLERK               |    950 |
+| FORD         | ANALYST             |   3000 |
+| HOFFMAN      | MANAGER             |   4150 |
+| GRASS        | SALESMAN            |   2575 |
+| MILLER       | CLERK               |   1300 |
+| AARUSH       | SALESMAN            |   1350 |
+| ALEX         | MANAGER             |   1250 |
+| NATASHA      | CLERK               |   1750 |
+| SANGITA      | Compliance officers |   1750 |
+| SUPRIYA      | ANALYST             |   1750 |
++--------------+---------------------+--------+
+28 rows in set (0.00 sec)
+
+mysql> desc emp;
++-----------+-------------+------+-----+---------+-------+
+| Field     | Type        | Null | Key | Default | Extra |
++-----------+-------------+------+-----+---------+-------+
+| EMPNO     | int         | NO   | PRI | NULL    |       |
+| ENAME     | varchar(12) | YES  |     | NULL    |       |
+| GENDER    | char(1)     | YES  |     | NULL    |       |
+| JOB       | varchar(20) | YES  |     | NULL    |       |
+| MGR       | int         | YES  | MUL | NULL    |       |
+| HIREDATE  | date        | YES  |     | NULL    |       |
+| SAL       | int         | YES  |     | NULL    |       |
+| COMM      | int         | YES  |     | NULL    |       |
+| DEPTNO    | int         | NO   | MUL | NULL    |       |
+| BONUSID   | int         | YES  |     | NULL    |       |
+| USER NAME | varchar(20) | YES  |     | NULL    |       |
+| PWD       | varchar(20) | YES  |     | NULL    |       |
+| PHONE     | varchar(45) | YES  |     | NULL    |       |
+| isActive  | tinyint(1)  | YES  |     | NULL    |       |
++-----------+-------------+------+-----+---------+-------+
+14 rows in set (0.00 sec)
+
+mysql> select ename EmployeeName ,job, sal Salary from emp;
++--------------+---------------------+--------+
+| EmployeeName | job                 | Salary |
++--------------+---------------------+--------+
+| GITA         | Compliance officers |   1750 |
+| VRUSHALI     | Compliance officers |   1750 |
+| SHARMIN      | Public Relation     |   1750 |
+| BANDISH      | Public Relation     |   1750 |
+| SMITH        | CLERK               |    800 |
+| AARAV        | CLERK               |   3350 |
+| THOMAS       | CLERK               |   1750 |
+| ALLEN        | SALESMAN            |   1600 |
+| WARD         | SALESMAN            |   1250 |
+| JONES        | MANAGER             |   2975 |
+| MARTIN       | SALESMAN            |   1250 |
+| BLAKE        | MANAGER             |   2850 |
+| CLARK        | MANAGER             |   2450 |
+| SCOTT        | ANALYST             |   3000 |
+| KING         | PRESIDENT           |   5000 |
+| FRED         | vice PRESIDENT      |   5000 |
+| TURNER       | SALESMAN            |   1500 |
+| ADAMS        | CLERK               |   1100 |
+| JAMES        | CLERK               |    950 |
+| FORD         | ANALYST             |   3000 |
+| HOFFMAN      | MANAGER             |   4150 |
+| GRASS        | SALESMAN            |   2575 |
+| MILLER       | CLERK               |   1300 |
+| AARUSH       | SALESMAN            |   1350 |
+| ALEX         | MANAGER             |   1250 |
+| NATASHA      | CLERK               |   1750 |
+| SANGITA      | Compliance officers |   1750 |
+| SUPRIYA      | ANALYST             |   1750 |
++--------------+---------------------+--------+
+28 rows in set (0.00 sec)
+
+mysql> select ename Employee Name ,job, sal Salary from emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'Name ,job, sal Salary from emp' at line 1
+mysql>
+mysql> select ename "Employee Name" ,job, sal Salary from emp;
++---------------+---------------------+--------+
+| Employee Name | job                 | Salary |
++---------------+---------------------+--------+
+| GITA          | Compliance officers |   1750 |
+| VRUSHALI      | Compliance officers |   1750 |
+| SHARMIN       | Public Relation     |   1750 |
+| BANDISH       | Public Relation     |   1750 |
+| SMITH         | CLERK               |    800 |
+| AARAV         | CLERK               |   3350 |
+| THOMAS        | CLERK               |   1750 |
+| ALLEN         | SALESMAN            |   1600 |
+| WARD          | SALESMAN            |   1250 |
+| JONES         | MANAGER             |   2975 |
+| MARTIN        | SALESMAN            |   1250 |
+| BLAKE         | MANAGER             |   2850 |
+| CLARK         | MANAGER             |   2450 |
+| SCOTT         | ANALYST             |   3000 |
+| KING          | PRESIDENT           |   5000 |
+| FRED          | vice PRESIDENT      |   5000 |
+| TURNER        | SALESMAN            |   1500 |
+| ADAMS         | CLERK               |   1100 |
+| JAMES         | CLERK               |    950 |
+| FORD          | ANALYST             |   3000 |
+| HOFFMAN       | MANAGER             |   4150 |
+| GRASS         | SALESMAN            |   2575 |
+| MILLER        | CLERK               |   1300 |
+| AARUSH        | SALESMAN            |   1350 |
+| ALEX          | MANAGER             |   1250 |
+| NATASHA       | CLERK               |   1750 |
+| SANGITA       | Compliance officers |   1750 |
+| SUPRIYA       | ANALYST             |   1750 |
++---------------+---------------------+--------+
+28 rows in set (0.00 sec)
+
+mysql> select ename "Employee Name" ,job, sal AS Salary from emp;
++---------------+---------------------+--------+
+| Employee Name | job                 | Salary |
++---------------+---------------------+--------+
+| GITA          | Compliance officers |   1750 |
+| VRUSHALI      | Compliance officers |   1750 |
+| SHARMIN       | Public Relation     |   1750 |
+| BANDISH       | Public Relation     |   1750 |
+| SMITH         | CLERK               |    800 |
+| AARAV         | CLERK               |   3350 |
+| THOMAS        | CLERK               |   1750 |
+| ALLEN         | SALESMAN            |   1600 |
+| WARD          | SALESMAN            |   1250 |
+| JONES         | MANAGER             |   2975 |
+| MARTIN        | SALESMAN            |   1250 |
+| BLAKE         | MANAGER             |   2850 |
+| CLARK         | MANAGER             |   2450 |
+| SCOTT         | ANALYST             |   3000 |
+| KING          | PRESIDENT           |   5000 |
+| FRED          | vice PRESIDENT      |   5000 |
+| TURNER        | SALESMAN            |   1500 |
+| ADAMS         | CLERK               |   1100 |
+| JAMES         | CLERK               |    950 |
+| FORD          | ANALYST             |   3000 |
+| HOFFMAN       | MANAGER             |   4150 |
+| GRASS         | SALESMAN            |   2575 |
+| MILLER        | CLERK               |   1300 |
+| AARUSH        | SALESMAN            |   1350 |
+| ALEX          | MANAGER             |   1250 |
+| NATASHA       | CLERK               |   1750 |
+| SANGITA       | Compliance officers |   1750 |
+| SUPRIYA       | ANALYST             |   1750 |
++---------------+---------------------+--------+
+28 rows in set (0.00 sec)
+
+mysql> select ename "Employee Name" ,job, sal AS from emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'from emp' at line 1
+mysql>
+mysql>
+mysql>
+mysql> select ename "Employee Name" ,job, sal primary from emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'primary from emp' at line 1
+mysql>
+mysql>
+mysql> select ename "Employee Name" ,job, sal create from emp;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'create from emp' at line 1
+mysql>
+mysql>
+mysql>
+mysql> select ename "Employee Name" ,job, sal "Primary" from emp;
++---------------+---------------------+---------+
+| Employee Name | job                 | Primary |
++---------------+---------------------+---------+
+| GITA          | Compliance officers |    1750 |
+| VRUSHALI      | Compliance officers |    1750 |
+| SHARMIN       | Public Relation     |    1750 |
+| BANDISH       | Public Relation     |    1750 |
+| SMITH         | CLERK               |     800 |
+| AARAV         | CLERK               |    3350 |
+| THOMAS        | CLERK               |    1750 |
+| ALLEN         | SALESMAN            |    1600 |
+| WARD          | SALESMAN            |    1250 |
+| JONES         | MANAGER             |    2975 |
+| MARTIN        | SALESMAN            |    1250 |
+| BLAKE         | MANAGER             |    2850 |
+| CLARK         | MANAGER             |    2450 |
+| SCOTT         | ANALYST             |    3000 |
+| KING          | PRESIDENT           |    5000 |
+| FRED          | vice PRESIDENT      |    5000 |
+| TURNER        | SALESMAN            |    1500 |
+| ADAMS         | CLERK               |    1100 |
+| JAMES         | CLERK               |     950 |
+| FORD          | ANALYST             |    3000 |
+| HOFFMAN       | MANAGER             |    4150 |
+| GRASS         | SALESMAN            |    2575 |
+| MILLER        | CLERK               |    1300 |
+| AARUSH        | SALESMAN            |    1350 |
+| ALEX          | MANAGER             |    1250 |
+| NATASHA       | CLERK               |    1750 |
+| SANGITA       | Compliance officers |    1750 |
+| SUPRIYA       | ANALYST             |    1750 |
++---------------+---------------------+---------+
+28 rows in set (0.00 sec)
+
+mysql>
+
+
+
+
+
+
+
+
+

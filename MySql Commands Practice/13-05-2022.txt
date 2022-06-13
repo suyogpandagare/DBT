@@ -1,0 +1,903 @@
+Microsoft Windows [Version 10.0.17763.2928]
+(c) 2018 Microsoft Corporation. All rights reserved.
+
+C:\Users\faculty>mysql -hlocalhost -P3306 -uroot -p
+Enter password: ****
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 11
+Server version: 8.0.29 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> exit
+Bye
+
+C:\Users\faculty>mysql -hlocalhost -P3306 -uroot -proot
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 12
+Server version: 8.0.29 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> exit
+Bye
+
+C:\Users\faculty>mysql --host=127.0.0.1 --port=3306 --user=root --password=root
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 13
+Server version: 8.0.29 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> exit
+Bye
+
+C:\Users\faculty>mysql --host=127.0.0.1  --user=root --password=root
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 14
+Server version: 8.0.29 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> exit
+Bye
+
+C:\Users\faculty>mysql --host=localhost  --user=root --password=root
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 15
+Server version: 8.0.29 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> exit
+Bye
+
+C:\Users\faculty>ipconfig
+
+Windows IP Configuration
+
+
+Ethernet adapter Ethernet:
+
+   Connection-specific DNS Suffix  . :
+   Link-local IPv6 Address . . . . . : fe80::f4d7:956c:5623:6319%5
+   IPv4 Address. . . . . . . . . . . : 192.168.1.8
+   Subnet Mask . . . . . . . . . . . : 255.255.255.0
+   Default Gateway . . . . . . . . . : fe80::1%5
+                                       192.168.1.1
+
+C:\Users\faculty>192.168.100.10
+'192.168.100.10' is not recognized as an internal or external command,
+operable program or batch file.
+
+C:\Users\faculty>mysql --host=192.168.100.10 --port=3306  --user=root --password=root
+mysql: [Warning] Using a password on the command line interface can be insecure.
+ERROR 2003 (HY000): Can't connect to MySQL server on '192.168.100.10:3306' (10060)
+
+C:\Users\faculty>mysql --host=192.168.1.8 --port=3306  --user=root --password=root
+mysql: [Warning] Using a password on the command line interface can be insecure.
+ERROR 1130 (HY000): Host 'IET61.IET.COM' is not allowed to connect to this MySQL server
+
+C:\Users\faculty>mysql --host=127.0.0.1 --port=3306  --user=root --password=root
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 17
+Server version: 8.0.29 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> exit
+Bye
+
+C:\Users\faculty>mysql --host=127.0.0.1 --port=3306  --user=root --password=root
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 18
+Server version: 8.0.29 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| db1                |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+7 rows in set (0.09 sec)
+
+mysql> select databse()
+    -> ;
+ERROR 1046 (3D000): No database selected
+mysql> select database();
++------------+
+| database() |
++------------+
+| NULL       |
++------------+
+1 row in set (0.00 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| db1                |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql> select database();
++------------+
+| database() |
++------------+
+| NULL       |
++------------+
+1 row in set (0.00 sec)
+
+mysql> create database db1;
+ERROR 1007 (HY000): Can't create database 'db1'; database exists
+mysql>
+mysql>
+mysql> create database if not exists db1;
+Query OK, 1 row affected, 1 warning (0.03 sec)
+
+mysql> show warnings;
++-------+------+----------------------------------------------+
+| Level | Code | Message                                      |
++-------+------+----------------------------------------------+
+| Note  | 1007 | Can't create database 'db1'; database exists |
++-------+------+----------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql> use db1;\
+Database changed
+mysql> select database();
++------------+
+| database() |
++------------+
+| db1        |
++------------+
+1 row in set (0.00 sec)
+
+mysql> exit
+Bye
+
+C:\Users\faculty>mysql --host=127.0.0.1 --port=3306  --user=root --password=root
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 19
+Server version: 8.0.29 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> select database();
++------------+
+| database() |
++------------+
+| NULL       |
++------------+
+1 row in set (0.00 sec)
+
+mysql> exit
+Bye
+
+C:\Users\faculty>mysql --host=127.0.0.1 --port=3306  --user=root --password=root db1
+mysql: [Warning] Using a password on the command line interface can be insecure.
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 20
+Server version: 8.0.29 MySQL Community Server - GPL
+
+Copyright (c) 2000, 2022, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> select database();
++------------+
+| database() |
++------------+
+| db1        |
++------------+
+1 row in set (0.00 sec)
+
+mysql> drop database abc;
+ERROR 1008 (HY000): Can't drop database 'abc'; database doesn't exist
+mysql> drop database if exists abc;
+Query OK, 0 rows affected, 1 warning (0.05 sec)
+
+mysql> show databases;
++--------------------+
+| Database           |
++--------------------+
+| db1                |
+| information_schema |
+| mysql              |
+| performance_schema |
+| sakila             |
+| sys                |
+| world              |
++--------------------+
+7 rows in set (0.00 sec)
+
+mysql> use db1
+Database changed
+mysql> select database();
++------------+
+| database() |
++------------+
+| db1        |
++------------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql> drop database abc;
+ERROR 1008 (HY000): Can't drop database 'abc'; database doesn't exist
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> drop database if exists abc;
+Query OK, 0 rows affected, 1 warning (0.04 sec)
+
+mysql> show warnings;
+Empty set (0.00 sec)
+
+mysql> drop database if exists abc;
+Query OK, 0 rows affected, 1 warning (0.04 sec)
+
+mysql> show warnings;
+Empty set (0.00 sec)
+
+mysql> show tablse;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'tablse' at line 1
+mysql> show tables;
++---------------------+
+| Tables_in_db1       |
++---------------------+
+| a                   |
+| agent               |
+| andor               |
+| b                   |
+| blanktablea         |
+| blanktableb         |
+| blog                |
+| bonus               |
+| books               |
+| candidate           |
+| client              |
+| coalesce            |
+| comments            |
+| company             |
+| customer            |
+| customers           |
+| demodept1           |
+| demodept2           |
+| dept                |
+| dept1               |
+| docs                |
+| dummy               |
+| duplicate           |
+| emp                 |
+| emp1                |
+| emp2                |
+| emp_attendance      |
+| emp_cards           |
+| emp_phone           |
+| empj                |
+| envelope            |
+| food                |
+| hobby               |
+| item                |
+| key_parts           |
+| licence             |
+| location            |
+| mass_table          |
+| menucard            |
+| nearest             |
+| new                 |
+| newbooks            |
+| nullif              |
+| numberstring        |
+| ord                 |
+| orders              |
+| plumber             |
+| plumber_service_map |
+| points              |
+| price               |
+| product             |
+| products            |
+| quarter_revenue     |
+| r                   |
+| r1                  |
+| r2                  |
+| races               |
+| regexpr             |
+| replacedept         |
+| revenue             |
+| runners             |
+| sales               |
+| sales_channel       |
+| salespeople         |
+| salesperson         |
+| salgrade            |
+| service             |
+| seta                |
+| setb                |
+| softdrink           |
+| sort                |
+| stadium             |
+| states              |
+| station             |
+| status              |
+| stringnumber        |
+| tablea              |
+| tableaa             |
+| tableb              |
+| tablebb             |
+| tasks               |
+| temp1               |
+| transactions        |
+| vote_response       |
+| votes               |
+| warehouse           |
+| z                   |
++---------------------+
+87 rows in set (0.04 sec)
+
+mysql> use db1;
+Database changed
+mysql> create schema db2;
+Query OK, 1 row affected (0.10 sec)
+
+mysql> use db2;
+Database changed
+mysql> selet database();
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'selet database()' at line 1
+mysql> select database();
++------------+
+| database() |
++------------+
+| db2        |
++------------+
+1 row in set (0.00 sec)
+
+mysql> show engines;
++--------------------+---------+----------------------------------------------------------------+--------------+------+------------+
+| Engine             | Support | Comment                                                        | Transactions | XA   | Savepoints |
++--------------------+---------+----------------------------------------------------------------+--------------+------+------------+
+| MEMORY             | YES     | Hash based, stored in memory, useful for temporary tables      | NO           | NO   | NO         |
+| MRG_MYISAM         | YES     | Collection of identical MyISAM tables                          | NO           | NO   | NO         |
+| CSV                | YES     | CSV storage engine                                             | NO           | NO   | NO         |
+| FEDERATED          | NO      | Federated MySQL storage engine                                 | NULL         | NULL | NULL       |
+| PERFORMANCE_SCHEMA | YES     | Performance Schema                                             | NO           | NO   | NO         |
+| MyISAM             | YES     | MyISAM storage engine                                          | NO           | NO   | NO         |
+| InnoDB             | DEFAULT | Supports transactions, row-level locking, and foreign keys     | YES          | YES  | YES        |
+| BLACKHOLE          | YES     | /dev/null storage engine (anything you write to it disappears) | NO           | NO   | NO         |
+| ARCHIVE            | YES     | Archive storage engine                                         | NO           | NO   | NO         |
++--------------------+---------+----------------------------------------------------------------+--------------+------+------------+
+9 rows in set (0.01 sec)
+
+mysql> create table emp(empID int, ename varchar(10), gender char, sal int, comm float(6,2) );
+Query OK, 0 rows affected, 1 warning (0.72 sec)
+
+mysql> show tables;
++---------------+
+| Tables_in_db2 |
++---------------+
+| emp           |
++---------------+
+1 row in set (0.00 sec)
+
+mysql> show full tables;
++---------------+------------+
+| Tables_in_db2 | Table_type |
++---------------+------------+
+| emp           | BASE TABLE |
++---------------+------------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql> describe emp;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| empID  | int         | YES  |     | NULL    |       |
+| ename  | varchar(10) | YES  |     | NULL    |       |
+| gender | char(1)     | YES  |     | NULL    |       |
+| sal    | int         | YES  |     | NULL    |       |
+| comm   | float(6,2)  | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.03 sec)
+
+mysql> desc emp;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| empID  | int         | YES  |     | NULL    |       |
+| ename  | varchar(10) | YES  |     | NULL    |       |
+| gender | char(1)     | YES  |     | NULL    |       |
+| sal    | int         | YES  |     | NULL    |       |
+| comm   | float(6,2)  | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> insert into emp values(1001,"saleel",'m', 1000, 1234.56);
+Query OK, 1 row affected (0.07 sec)
+
+mysql>
+mysql>
+mysql> select * from emp;
++-------+--------+--------+------+---------+
+| empID | ename  | gender | sal  | comm    |
++-------+--------+--------+------+---------+
+|  1001 | saleel | m      | 1000 | 1234.56 |
++-------+--------+--------+------+---------+
+1 row in set (0.00 sec)
+
+mysql> insert into emp values(1002,"sharmin",'f', 2000, 1234.567);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from emp;
++-------+---------+--------+------+---------+
+| empID | ename   | gender | sal  | comm    |
++-------+---------+--------+------+---------+
+|  1001 | saleel  | m      | 1000 | 1234.56 |
+|  1002 | sharmin | f      | 2000 | 1234.57 |
++-------+---------+--------+------+---------+
+2 rows in set (0.00 sec)
+
+mysql> insert into emp values(1003,"ruhan,'m', 2000, 1234.564);
+    "> ;^C
+mysql> insert into emp values(1003,"ruhan",'m', 2000, 1234.564);
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from emp;
++-------+---------+--------+------+---------+
+| empID | ename   | gender | sal  | comm    |
++-------+---------+--------+------+---------+
+|  1001 | saleel  | m      | 1000 | 1234.56 |
+|  1002 | sharmin | f      | 2000 | 1234.57 |
+|  1003 | ruhan   | m      | 2000 | 1234.56 |
++-------+---------+--------+------+---------+
+3 rows in set (0.00 sec)
+
+mysql> desc emp;\
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| empID  | int         | YES  |     | NULL    |       |
+| ename  | varchar(10) | YES  |     | NULL    |       |
+| gender | char(1)     | YES  |     | NULL    |       |
+| sal    | int         | YES  |     | NULL    |       |
+| comm   | float(6,2)  | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * from emp;
++-------+---------+--------+------+---------+
+| empID | ename   | gender | sal  | comm    |
++-------+---------+--------+------+---------+
+|  1001 | saleel  | m      | 1000 | 1234.56 |
+|  1002 | sharmin | f      | 2000 | 1234.57 |
+|  1003 | ruhan   | m      | 2000 | 1234.56 |
++-------+---------+--------+------+---------+
+3 rows in set (0.00 sec)
+
+mysql> insert into emp values(1004,"abc",'m', 2000);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into emp values(1004,"abc",'m', 2000, 88, 'data');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql>
+mysql>
+mysql>
+mysql>
+mysql> insert into emp values(1004,"abc",'m');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql>
+mysql> insert into emp values(1004,"abc",'m',null, null);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from emp;
++-------+---------+--------+------+---------+
+| empID | ename   | gender | sal  | comm    |
++-------+---------+--------+------+---------+
+|  1001 | saleel  | m      | 1000 | 1234.56 |
+|  1002 | sharmin | f      | 2000 | 1234.57 |
+|  1003 | ruhan   | m      | 2000 | 1234.56 |
+|  1004 | abc     | m      | NULL |    NULL |
++-------+---------+--------+------+---------+
+4 rows in set (0.00 sec)
+
+mysql>
+mysql>
+mysql>
+mysql> insert into emp(empID, ename, gender) values(1005,"xyz",'f');
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from emp;
++-------+---------+--------+------+---------+
+| empID | ename   | gender | sal  | comm    |
++-------+---------+--------+------+---------+
+|  1001 | saleel  | m      | 1000 | 1234.56 |
+|  1002 | sharmin | f      | 2000 | 1234.57 |
+|  1003 | ruhan   | m      | 2000 | 1234.56 |
+|  1004 | abc     | m      | NULL |    NULL |
+|  1005 | xyz     | f      | NULL |    NULL |
++-------+---------+--------+------+---------+
+5 rows in set (0.00 sec)
+
+mysql> update emp set sal=1234;
+Query OK, 5 rows affected (0.07 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> select * from emp;
++-------+---------+--------+------+---------+
+| empID | ename   | gender | sal  | comm    |
++-------+---------+--------+------+---------+
+|  1001 | saleel  | m      | 1234 | 1234.56 |
+|  1002 | sharmin | f      | 1234 | 1234.57 |
+|  1003 | ruhan   | m      | 1234 | 1234.56 |
+|  1004 | abc     | m      | 1234 |    NULL |
+|  1005 | xyz     | f      | 1234 |    NULL |
++-------+---------+--------+------+---------+
+5 rows in set (0.00 sec)
+
+mysql>
+mysql>
+mysql> update emp set sal=5000, comm=-1;
+Query OK, 5 rows affected (0.08 sec)
+Rows matched: 5  Changed: 5  Warnings: 0
+
+mysql> select * from emp;
++-------+---------+--------+------+-------+
+| empID | ename   | gender | sal  | comm  |
++-------+---------+--------+------+-------+
+|  1001 | saleel  | m      | 5000 | -1.00 |
+|  1002 | sharmin | f      | 5000 | -1.00 |
+|  1003 | ruhan   | m      | 5000 | -1.00 |
+|  1004 | abc     | m      | 5000 | -1.00 |
+|  1005 | xyz     | f      | 5000 | -1.00 |
++-------+---------+--------+------+-------+
+5 rows in set (0.00 sec)
+
+mysql> update emp set sal=7000, comm=345 where empId=1004;
+Query OK, 1 row affected (0.07 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from emp;
++-------+---------+--------+------+--------+
+| empID | ename   | gender | sal  | comm   |
++-------+---------+--------+------+--------+
+|  1001 | saleel  | m      | 5000 |  -1.00 |
+|  1002 | sharmin | f      | 5000 |  -1.00 |
+|  1003 | ruhan   | m      | 5000 |  -1.00 |
+|  1004 | abc     | m      | 7000 | 345.00 |
+|  1005 | xyz     | f      | 5000 |  -1.00 |
++-------+---------+--------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> update emp set sal=1234, comm=555 where gender='f'
+    -> ;
+Query OK, 2 rows affected (0.06 sec)
+Rows matched: 2  Changed: 2  Warnings: 0
+
+mysql> select * from emp;
++-------+---------+--------+------+--------+
+| empID | ename   | gender | sal  | comm   |
++-------+---------+--------+------+--------+
+|  1001 | saleel  | m      | 5000 |  -1.00 |
+|  1002 | sharmin | f      | 1234 | 555.00 |
+|  1003 | ruhan   | m      | 5000 |  -1.00 |
+|  1004 | abc     | m      | 7000 | 345.00 |
+|  1005 | xyz     | f      | 1234 | 555.00 |
++-------+---------+--------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> update emp set sal=7000, comm=345, where empId=1004;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'where empId=1004' at line 1
+mysql>
+mysql>
+mysql> update emp set sal=7000, comm=345, ename='PQR' where empId=1004;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from emp;
++-------+---------+--------+------+--------+
+| empID | ename   | gender | sal  | comm   |
++-------+---------+--------+------+--------+
+|  1001 | saleel  | m      | 5000 |  -1.00 |
+|  1002 | sharmin | f      | 1234 | 555.00 |
+|  1003 | ruhan   | m      | 5000 |  -1.00 |
+|  1004 | PQR     | m      | 7000 | 345.00 |
+|  1005 | xyz     | f      | 1234 | 555.00 |
++-------+---------+--------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> select * from emp;
++-------+---------+--------+------+--------+
+| empID | ename   | gender | sal  | comm   |
++-------+---------+--------+------+--------+
+|  1001 | saleel  | m      | 5000 |  -1.00 |
+|  1002 | sharmin | f      | 1234 | 555.00 |
+|  1003 | ruhan   | m      | 5000 |  -1.00 |
+|  1004 | PQR     | m      | 7000 | 345.00 |
+|  1005 | xyz     | f      | 1234 | 555.00 |
++-------+---------+--------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> show variables like 'auto%';
++--------------------------+-------+
+| Variable_name            | Value |
++--------------------------+-------+
+| auto_generate_certs      | ON    |
+| auto_increment_increment | 1     |
+| auto_increment_offset    | 1     |
+| autocommit               | ON    |
+| automatic_sp_privileges  | ON    |
++--------------------------+-------+
+5 rows in set (0.04 sec)
+
+mysql> \r
+Connection id:    8
+Current database: db2
+
+mysql> desc emp;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| empID  | int         | YES  |     | NULL    |       |
+| ename  | varchar(10) | YES  |     | NULL    |       |
+| gender | char(1)     | YES  |     | NULL    |       |
+| sal    | int         | YES  |     | NULL    |       |
+| comm   | float(6,2)  | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.04 sec)
+
+mysql> select * from emp;
++-------+---------+--------+------+--------+
+| empID | ename   | gender | sal  | comm   |
++-------+---------+--------+------+--------+
+|  1001 | saleel  | m      | 5000 |  -1.00 |
+|  1002 | sharmin | f      | 1234 | 555.00 |
+|  1003 | ruhan   | m      | 5000 |  -1.00 |
+|  1004 | PQR     | m      | 7000 | 345.00 |
+|  1005 | xyz     | f      | 1234 | 555.00 |
++-------+---------+--------+------+--------+
+5 rows in set (0.01 sec)
+
+mysql> insert into emp values(1,1,1,1,1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp;
++-------+---------+--------+------+--------+
+| empID | ename   | gender | sal  | comm   |
++-------+---------+--------+------+--------+
+|  1001 | saleel  | m      | 5000 |  -1.00 |
+|  1002 | sharmin | f      | 1234 | 555.00 |
+|  1003 | ruhan   | m      | 5000 |  -1.00 |
+|  1004 | PQR     | m      | 7000 | 345.00 |
+|  1005 | xyz     | f      | 1234 | 555.00 |
+|     1 | 1       | 1      |    1 |   1.00 |
++-------+---------+--------+------+--------+
+6 rows in set (0.00 sec)
+
+mysql> insert into emp values(1006,'un','null', null, null);
+ERROR 1406 (22001): Data too long for column 'gender' at row 1
+mysql>
+mysql>
+mysql>
+mysql> rollback;\
+Query OK, 0 rows affected (0.03 sec)
+
+mysql>
+mysql> select * from emp;
++-------+---------+--------+------+--------+
+| empID | ename   | gender | sal  | comm   |
++-------+---------+--------+------+--------+
+|  1001 | saleel  | m      | 5000 |  -1.00 |
+|  1002 | sharmin | f      | 1234 | 555.00 |
+|  1003 | ruhan   | m      | 5000 |  -1.00 |
+|  1004 | PQR     | m      | 7000 | 345.00 |
+|  1005 | xyz     | f      | 1234 | 555.00 |
++-------+---------+--------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> select * from emp;
++-------+---------+--------+------+--------+
+| empID | ename   | gender | sal  | comm   |
++-------+---------+--------+------+--------+
+|  1001 | saleel  | m      | 5000 |  -1.00 |
+|  1002 | sharmin | f      | 1234 | 555.00 |
+|  1003 | ruhan   | m      | 5000 |  -1.00 |
+|  1004 | PQR     | m      | 7000 | 345.00 |
+|  1005 | xyz     | f      | 1234 | 555.00 |
++-------+---------+--------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> insert into emp values(1,1,1,1,1);
+Query OK, 1 row affected (0.00 sec)
+
+mysql> update emp set ename='Raju' where ename='saleel';
+Query OK, 1 row affected (0.00 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql>
+mysql> select * from emp;
++-------+---------+--------+------+--------+
+| empID | ename   | gender | sal  | comm   |
++-------+---------+--------+------+--------+
+|  1001 | Raju    | m      | 5000 |  -1.00 |
+|  1002 | sharmin | f      | 1234 | 555.00 |
+|  1003 | ruhan   | m      | 5000 |  -1.00 |
+|  1004 | PQR     | m      | 7000 | 345.00 |
+|  1005 | xyz     | f      | 1234 | 555.00 |
+|     1 | 1       | 1      |    1 |   1.00 |
++-------+---------+--------+------+--------+
+6 rows in set (0.00 sec)
+
+mysql> delete from emp where empid=1004;
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from emp;
++-------+---------+--------+------+--------+
+| empID | ename   | gender | sal  | comm   |
++-------+---------+--------+------+--------+
+|  1001 | Raju    | m      | 5000 |  -1.00 |
+|  1002 | sharmin | f      | 1234 | 555.00 |
+|  1003 | ruhan   | m      | 5000 |  -1.00 |
+|  1005 | xyz     | f      | 1234 | 555.00 |
+|     1 | 1       | 1      |    1 |   1.00 |
++-------+---------+--------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> rollback;
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> select * from emp;
++-------+---------+--------+------+--------+
+| empID | ename   | gender | sal  | comm   |
++-------+---------+--------+------+--------+
+|  1001 | saleel  | m      | 5000 |  -1.00 |
+|  1002 | sharmin | f      | 1234 | 555.00 |
+|  1003 | ruhan   | m      | 5000 |  -1.00 |
+|  1004 | PQR     | m      | 7000 | 345.00 |
+|  1005 | xyz     | f      | 1234 | 555.00 |
++-------+---------+--------+------+--------+
+5 rows in set (0.00 sec)
+
+mysql> show tables;
++---------------+
+| Tables_in_db2 |
++---------------+
+| emp           |
++---------------+
+1 row in set (0.01 sec)
+
+mysql> create table dept(deptno int, dname varchar(10));
+Query OK, 0 rows affected (0.36 sec)
+
+mysql> show tables;
++---------------+
+| Tables_in_db2 |
++---------------+
+| dept          |
+| emp           |
++---------------+
+2 rows in set (0.00 sec)
+
+mysql> desc dept;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| deptno | int         | YES  |     | NULL    |       |
+| dname  | varchar(10) | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+2 rows in set (0.00 sec)
+
+mysql> desc emp;
++--------+-------------+------+-----+---------+-------+
+| Field  | Type        | Null | Key | Default | Extra |
++--------+-------------+------+-----+---------+-------+
+| empID  | int         | YES  |     | NULL    |       |
+| ename  | varchar(10) | YES  |     | NULL    |       |
+| gender | char(1)     | YES  |     | NULL    |       |
+| sal    | int         | YES  |     | NULL    |       |
+| comm   | float(6,2)  | YES  |     | NULL    |       |
++--------+-------------+------+-----+---------+-------+
+5 rows in set (0.00 sec)
+
+mysql> select * frfom dept;\
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'frfom dept' at line 1
+mysql>
+mysql> \
+mysql> select * from dept;\
+Empty set (0.00 sec)
+
+mysql> insert into dept values(10,'sales');
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into dept values(20,'purchase'), (30,'accounts'),(40,'MKT') ;
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from dept;
++--------+----------+
+| deptno | dname    |
++--------+----------+
+|     10 | sales    |
+|     20 | purchase |
+|     30 | accounts |
+|     40 | MKT      |
++--------+----------+
+4 rows in set (0.00 sec)
+
+mysql>

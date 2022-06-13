@@ -1,0 +1,297 @@
+Microsoft Windows [Version 10.0.22000.675]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\hp>mongo
+MongoDB shell version v5.0.8
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("0de3368d-0a35-4ed6-ae87-d3a3251841d2") }
+MongoDB server version: 5.0.8
+================
+Warning: the "mongo" shell has been superseded by "mongosh",
+which delivers improved usability and compatibility.The "mongo" shell has been deprecated and will be removed in
+an upcoming release.
+For installation instructions, see
+https://docs.mongodb.com/mongodb-shell/install/
+================
+---
+The server generated these startup warnings when booting:
+        2022-05-27T07:46:32.647+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+---
+---
+        Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+        metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+        The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+        and anyone you share the URL with. MongoDB may use this information to make product
+        improvements and to suggest MongoDB products and deployment options to you.
+
+        To enable free monitoring, run the following command: db.enableFreeMonitoring()
+        To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+> show databases
+admin      0.000GB
+config     0.000GB
+local      0.000GB
+primaryDB  0.000GB
+> use primaryDB
+switched to db primaryDB
+> db.CollectionNames
+primaryDB.CollectionNames
+> db.CollectionNames()
+uncaught exception: TypeError: db.CollectionNames is not a function :
+@(shell):1:1
+> db.getCollectionNames()
+[ "books", "emp", "items", "vehicle" ]
+> exit
+bye
+
+C:\Users\hp>mongoimport --db=primaryDB --collection=dept --type=csv --file="D:\emp.csv" --fields"deptno int,dname varchar,"
+2022-05-28T08:12:22.386+0530    error parsing command line options: unknown option "fieldsdeptno int,dname varchar,"
+2022-05-28T08:12:22.386+0530    try 'mongoimport --help' for more information
+
+C:\Users\hp>
+C:\Users\hp>mongo
+MongoDB shell version v5.0.8
+connecting to: mongodb://127.0.0.1:27017/?compressors=disabled&gssapiServiceName=mongodb
+Implicit session: session { "id" : UUID("90861534-46e8-4162-b5a4-d45649d1fa93") }
+MongoDB server version: 5.0.8
+================
+Warning: the "mongo" shell has been superseded by "mongosh",
+which delivers improved usability and compatibility.The "mongo" shell has been deprecated and will be removed in
+an upcoming release.
+For installation instructions, see
+https://docs.mongodb.com/mongodb-shell/install/
+================
+---
+The server generated these startup warnings when booting:
+        2022-05-27T07:46:32.647+05:30: Access control is not enabled for the database. Read and write access to data and configuration is unrestricted
+---
+---
+        Enable MongoDB's free cloud-based monitoring service, which will then receive and display
+        metrics about your deployment (disk utilization, CPU, operation statistics, etc).
+
+        The monitoring data will be available on a MongoDB website with a unique URL accessible to you
+        and anyone you share the URL with. MongoDB may use this information to make product
+        improvements and to suggest MongoDB products and deployment options to you.
+
+        To enable free monitoring, run the following command: db.enableFreeMonitoring()
+        To permanently disable this reminder, run the following command: db.disableFreeMonitoring()
+---
+> db.createCollection('student',{capped:true,size:1000,max:2})
+{ "ok" : 1 }
+> db.getCollectionNames;
+function() {
+    return this._getCollectionNamesInternal({});
+}
+> use primaryDb
+switched to db primaryDb
+> use primaryDB
+switched to db primaryDB
+> db.createCollection('student',{capped:true,size:1000,max:2})
+{ "ok" : 1 }
+> db.getCollectionNames();
+[ "books", "emp", "items", "student", "vehicle" ]
+> db.student.isCapped();
+true
+> db.student.insert({_id:1,sname:"shreyas"})
+WriteResult({ "nInserted" : 1 })
+> db.student.insert({_id:2,sname:"abhilash"})
+WriteResult({ "nInserted" : 1 })
+> db.student.insert({_id:3,sname:"suyog",isActive:true})
+WriteResult({ "nInserted" : 1 })
+> db.student.find();
+{ "_id" : 2, "sname" : "abhilash" }
+{ "_id" : 3, "sname" : "suyog", "isActive" : true }
+> db.student.insert({_id:4,sname:"sonali",isActive:false})
+WriteResult({ "nInserted" : 1 })
+> db.student.find();
+{ "_id" : 3, "sname" : "suyog", "isActive" : true }
+{ "_id" : 4, "sname" : "sonali", "isActive" : false }
+> db.createCollection('person')
+{ "ok" : 1 }
+> show tables;
+books
+emp
+items
+person
+student
+vehicle
+> db.person.insertOne({_id:"shreyas",name:"shreyas bhoyar",city:"nanded",state:'mh',passportDtl:{passportNo:"shr123",validity:"25 years"}})
+{ "acknowledged" : true, "insertedId" : "shreyas" }
+> db.person.find().pretty();
+{
+        "_id" : "shreyas",
+        "name" : "shreyas bhoyar",
+        "city" : "nanded",
+        "state" : "mh",
+        "passportDtl" : {
+                "passportNo" : "shr123",
+                "validity" : "25 years"
+        }
+}
+> db.person.find().({name:true,city:true,state:1,"passportDtl.passportNo":true});
+uncaught exception: SyntaxError: missing name after . operator :ssportNo":true});, "pass@(shell):1:17ind().({name:true,city:true,state:1,"passportDtl.passportNo":true});
+> db.person.find().({name:true,city:true,state:1,"passportDtl.passportNo":true});
+> db.person.find().({name:true,city:true,state:1,"passportDtl.passportNo":true});
+> db.person.find().({name:true,city:true,state:1,"passportDtl.passportNo":true});
+> db.person.find().({name:true,city:true,state:1,"passportDtl.passportNo":true});
+>
+> db.person.find().({name:true,city:true,state:true,"passportDtl.passportNo":true});
+uncaught exception: SyntaxError: missing name after . operator :
+@(shell):1:17
+> db.person.find({},{name:true,city:true,state:true,"passportDtl.passportNo":true});
+{ "_id" : "shreyas", "name" : "shreyas bhoyar", "city" : "nanded", "state" : "mh", "passportDtl" : { "passportNo" : "shr123" } }
+> db.createCollection('person1');
+{ "ok" : 1 }
+> db.person1.insertOne({_id:"shreyas",name:"shreyas bhoyar",city:"nanded",state:'mh')
+...
+...
+> db.person.insertOne({_id:"shreyas",name:"shreyas bhoyar",city:"nanded",state:'mh'})
+WriteError({
+        "index" : 0,
+        "code" : 11000,
+        "errmsg" : "E11000 duplicate key error collection: primaryDB.person index: _id_ dup key: { _id: \"shreyas\" }",
+        "op" : {
+                "_id" : "shreyas",
+                "name" : "shreyas bhoyar",
+                "city" : "nanded",
+                "state" : "mh"
+        }
+}) :
+WriteError({
+        "index" : 0,
+        "code" : 11000,
+        "errmsg" : "E11000 duplicate key error collection: primaryDB.person index: _id_ dup key: { _id: \"shreyas\" }",
+        "op" : {
+                "_id" : "shreyas",
+                "name" : "shreyas bhoyar",
+                "city" : "nanded",
+                "state" : "mh"
+        }
+})
+WriteError@src/mongo/shell/bulk_api.js:465:48
+mergeBatchResults@src/mongo/shell/bulk_api.js:871:49
+executeBatch@src/mongo/shell/bulk_api.js:940:13
+Bulk/this.execute@src/mongo/shell/bulk_api.js:1182:21
+DBCollection.prototype.insertOne@src/mongo/shell/crud_api.js:264:9
+@(shell):1:1
+> db.person1.insertOne({_id:"shreyas",name:"shreyas bhoyar",city:"nanded",state:'mh'})
+{ "acknowledged" : true, "insertedId" : "shreyas" }
+> db.passport.insertOne({_id:'shreyas',passportNo:"shr123",city:'nanded',state:'mh'})
+{ "acknowledged" : true, "insertedId" : "shreyas" }
+> db.person1.aggregate([{$lookup:{from:"passport", localField:"_id" ,foreignField:"_id",as: "Passport Details" }}])
+{ "_id" : "shreyas", "name" : "shreyas bhoyar", "city" : "nanded", "state" : "mh", "Passport Details" : [ { "_id" : "shreyas", "passportNo" : "shr123", "city" : "nanded", "state" : "mh" } ] }
+> db.person1.aggregate([{$lookup:{from:"passport", localField:"_id" ,foreignField:"_id",as: "Passport Details" }}]).prtty();
+uncaught exception: TypeError: db.person1.aggregate(...).prtty is not a function :
+@(shell):1:1
+> db.person1.aggregate([{$lookup:{from:"passport", localField:"_id" ,foreignField:"_id",as: "Passport Details" }}]).pretty();
+{
+        "_id" : "shreyas",
+        "name" : "shreyas bhoyar",
+        "city" : "nanded",
+        "state" : "mh",
+        "Passport Details" : [
+                {
+                        "_id" : "shreyas",
+                        "passportNo" : "shr123",
+                        "city" : "nanded",
+                        "state" : "mh"
+                }
+        ]
+}
+> show tables
+books
+emp
+items
+passport
+person
+person1
+student
+vehicle
+> db.books.remove({})
+WriteResult({ "nRemoved" : 4 })
+> db.books.insertMany([{_id:'b1',title:'neo4j'},{_id:'b2',title:'pig'},{_id:'b3',title:'redis'},{_id:'b4',title:'hive'},{_id:'b5',title:'hbase'}])
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                "b1",
+                "b2",
+                "b3",
+                "b4",
+                "b5"
+        ]
+}
+> db.authors.insertMany([{_id:'a1',name:'shreyas',bookID:"b1"},{_id:'a2',name:'sonali',bookID:"b1"},{_id:'a3',name:'himu',bookID:"b2"},{_id:'a4',name:'abhi',bookID:"b2"},{_id:'a5',name:'suyog',bookID:"b3"}])
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                "a1",
+                "a2",
+                "a3",
+                "a4",
+                "a5"
+        ]
+}
+> db.books.aggregate([{$lookup:{from:"authors", localField:"_id" ,foreignField:"bookID",as: "Book Details" }}]).pretty();
+{
+        "_id" : "b1",
+        "title" : "neo4j",
+        "Book Details" : [
+                {
+                        "_id" : "a1",
+                        "name" : "shreyas",
+                        "bookID" : "b1"
+                },
+                {
+                        "_id" : "a2",
+                        "name" : "sonali",
+                        "bookID" : "b1"
+                }
+        ]
+}
+{
+        "_id" : "b2",
+        "title" : "pig",
+        "Book Details" : [
+                {
+                        "_id" : "a3",
+                        "name" : "himu",
+                        "bookID" : "b2"
+                },
+                {
+                        "_id" : "a4",
+                        "name" : "abhi",
+                        "bookID" : "b2"
+                }
+        ]
+}
+{
+        "_id" : "b3",
+        "title" : "redis",
+        "Book Details" : [
+                {
+                        "_id" : "a5",
+                        "name" : "suyog",
+                        "bookID" : "b3"
+                }
+        ]
+}
+{ "_id" : "b4", "title" : "hive", "Book Details" : [ ] }
+{ "_id" : "b5", "title" : "hbase", "Book Details" : [ ] }
+> db.books.aggregate([{$lookup:{from:"authors", localField:"_id" ,foreignField:"bookID",as: "Book Details" }}tty();
+...
+...
+> db.books.aggregate([{$lookup:{from:"authors", localField:"_id" ,foreignField:"bookID",as: "Book Details" }}]);
+{ "_id" : "b1", "title" : "neo4j", "Book Details" : [ { "_id" : "a1", "name" : "shreyas", "bookID" : "b1" }, { "_id" : "a2", "name" : "sonali", "bookID" : "b1" } ] }
+{ "_id" : "b2", "title" : "pig", "Book Details" : [ { "_id" : "a3", "name" : "himu", "bookID" : "b2" }, { "_id" : "a4", "name" : "abhi", "bookID" : "b2" } ] }
+{ "_id" : "b3", "title" : "redis", "Book Details" : [ { "_id" : "a5", "name" : "suyog", "bookID" : "b3" } ] }
+{ "_id" : "b4", "title" : "hive", "Book Details" : [ ] }
+{ "_id" : "b5", "title" : "hbase", "Book Details" : [ ] }
+> db.authors.updateOne({_id:"a5"},{$set:{charges:900}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+> db.authors.update({_id:"a5"},{$unset:{charges:900}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+> db.authors.updateMany({_id:"a5"},{$unset:{charges:900}})^C
+bye
+
+C:\Users\hp>

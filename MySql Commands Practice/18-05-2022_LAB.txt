@@ -1,0 +1,966 @@
+
+mysql>
+mysql> SELECT LENGTH(ENAME) FROM EMP;
++---------------+
+| LENGTH(ENAME) |
++---------------+
+|             4 |
+|             8 |
+|             7 |
+|             7 |
+|             5 |
+|             5 |
+|             6 |
+|             5 |
+|             4 |
+|             5 |
+|             6 |
+|             5 |
+|             5 |
+|             5 |
+|             4 |
+|             4 |
+|             6 |
+|             5 |
+|             5 |
+|             4 |
+|             7 |
+|             5 |
+|             6 |
+|             6 |
+|             4 |
+|             7 |
+|             7 |
+|             7 |
++---------------+
+28 rows in set (0.00 sec)
+
+mysql> SELECT ENAME, LENGTH(ENAME) FROM EMP;
++----------+---------------+
+| ENAME    | LENGTH(ENAME) |
++----------+---------------+
+| GITA     |             4 |
+| VRUSHALI |             8 |
+| SHARMIN  |             7 |
+| BANDISH  |             7 |
+| SMITH    |             5 |
+| AARAV    |             5 |
+| THOMAS   |             6 |
+| ALLEN    |             5 |
+| WARD     |             4 |
+| JONES    |             5 |
+| MARTIN   |             6 |
+| BLAKE    |             5 |
+| CLARK    |             5 |
+| SCOTT    |             5 |
+| KING     |             4 |
+| FRED     |             4 |
+| TURNER   |             6 |
+| ADAMS    |             5 |
+| JAMES    |             5 |
+| FORD     |             4 |
+| HOFFMAN  |             7 |
+| GRASS    |             5 |
+| MILLER   |             6 |
+| AARUSH   |             6 |
+| ALEX     |             4 |
+| NATASHA  |             7 |
+| SANGITA  |             7 |
+| SUPRIYA  |             7 |
++----------+---------------+
+28 rows in set (0.00 sec)
+
+mysql> SELECT ENAME, LENGTH(ENAME), REPLACE(ENAME, 'A','')  FROM EMP;
++----------+---------------+------------------------+
+| ENAME    | LENGTH(ENAME) | REPLACE(ENAME, 'A','') |
++----------+---------------+------------------------+
+| GITA     |             4 | GIT                    |
+| VRUSHALI |             8 | VRUSHLI                |
+| SHARMIN  |             7 | SHRMIN                 |
+| BANDISH  |             7 | BNDISH                 |
+| SMITH    |             5 | SMITH                  |
+| AARAV    |             5 | RV                     |
+| THOMAS   |             6 | THOMS                  |
+| ALLEN    |             5 | LLEN                   |
+| WARD     |             4 | WRD                    |
+| JONES    |             5 | JONES                  |
+| MARTIN   |             6 | MRTIN                  |
+| BLAKE    |             5 | BLKE                   |
+| CLARK    |             5 | CLRK                   |
+| SCOTT    |             5 | SCOTT                  |
+| KING     |             4 | KING                   |
+| FRED     |             4 | FRED                   |
+| TURNER   |             6 | TURNER                 |
+| ADAMS    |             5 | DMS                    |
+| JAMES    |             5 | JMES                   |
+| FORD     |             4 | FORD                   |
+| HOFFMAN  |             7 | HOFFMN                 |
+| GRASS    |             5 | GRSS                   |
+| MILLER   |             6 | MILLER                 |
+| AARUSH   |             6 | RUSH                   |
+| ALEX     |             4 | LEX                    |
+| NATASHA  |             7 | NTSH                   |
+| SANGITA  |             7 | SNGIT                  |
+| SUPRIYA  |             7 | SUPRIY                 |
++----------+---------------+------------------------+
+28 rows in set (0.00 sec)
+
+mysql> SELECT ENAME, LENGTH(ENAME)- REPLACE(ENAME, 'A','')  FROM EMP;
++----------+---------------------------------------+
+| ENAME    | LENGTH(ENAME)- REPLACE(ENAME, 'A','') |
++----------+---------------------------------------+
+| GITA     |                                     4 |
+| VRUSHALI |                                     8 |
+| SHARMIN  |                                     7 |
+| BANDISH  |                                     7 |
+| SMITH    |                                     5 |
+| AARAV    |                                     5 |
+| THOMAS   |                                     6 |
+| ALLEN    |                                     5 |
+| WARD     |                                     4 |
+| JONES    |                                     5 |
+| MARTIN   |                                     6 |
+| BLAKE    |                                     5 |
+| CLARK    |                                     5 |
+| SCOTT    |                                     5 |
+| KING     |                                     4 |
+| FRED     |                                     4 |
+| TURNER   |                                     6 |
+| ADAMS    |                                     5 |
+| JAMES    |                                     5 |
+| FORD     |                                     4 |
+| HOFFMAN  |                                     7 |
+| GRASS    |                                     5 |
+| MILLER   |                                     6 |
+| AARUSH   |                                     6 |
+| ALEX     |                                     4 |
+| NATASHA  |                                     7 |
+| SANGITA  |                                     7 |
+| SUPRIYA  |                                     7 |
++----------+---------------------------------------+
+28 rows in set, 28 warnings (0.00 sec)
+
+mysql> SELECT ENAME, LENGTH(ENAME)- LENGTH(REPLACE(ENAME, 'A',''))  FROM EMP;
++----------+-----------------------------------------------+
+| ENAME    | LENGTH(ENAME)- LENGTH(REPLACE(ENAME, 'A','')) |
++----------+-----------------------------------------------+
+| GITA     |                                             1 |
+| VRUSHALI |                                             1 |
+| SHARMIN  |                                             1 |
+| BANDISH  |                                             1 |
+| SMITH    |                                             0 |
+| AARAV    |                                             3 |
+| THOMAS   |                                             1 |
+| ALLEN    |                                             1 |
+| WARD     |                                             1 |
+| JONES    |                                             0 |
+| MARTIN   |                                             1 |
+| BLAKE    |                                             1 |
+| CLARK    |                                             1 |
+| SCOTT    |                                             0 |
+| KING     |                                             0 |
+| FRED     |                                             0 |
+| TURNER   |                                             0 |
+| ADAMS    |                                             2 |
+| JAMES    |                                             1 |
+| FORD     |                                             0 |
+| HOFFMAN  |                                             1 |
+| GRASS    |                                             1 |
+| MILLER   |                                             0 |
+| AARUSH   |                                             2 |
+| ALEX     |                                             1 |
+| NATASHA  |                                             3 |
+| SANGITA  |                                             2 |
+| SUPRIYA  |                                             1 |
++----------+-----------------------------------------------+
+28 rows in set (0.00 sec)
+
+mysql> SELECT ENAME, LENGTH(ENAME)- LENGTH(REPLACE(ENAME, 'A','')) A FROM EMP;
++----------+------+
+| ENAME    | A    |
++----------+------+
+| GITA     |    1 |
+| VRUSHALI |    1 |
+| SHARMIN  |    1 |
+| BANDISH  |    1 |
+| SMITH    |    0 |
+| AARAV    |    3 |
+| THOMAS   |    1 |
+| ALLEN    |    1 |
+| WARD     |    1 |
+| JONES    |    0 |
+| MARTIN   |    1 |
+| BLAKE    |    1 |
+| CLARK    |    1 |
+| SCOTT    |    0 |
+| KING     |    0 |
+| FRED     |    0 |
+| TURNER   |    0 |
+| ADAMS    |    2 |
+| JAMES    |    1 |
+| FORD     |    0 |
+| HOFFMAN  |    1 |
+| GRASS    |    1 |
+| MILLER   |    0 |
+| AARUSH   |    2 |
+| ALEX     |    1 |
+| NATASHA  |    3 |
+| SANGITA  |    2 |
+| SUPRIYA  |    1 |
++----------+------+
+28 rows in set (0.00 sec)
+
+mysql> SELECT ENAME, LENGTH(ENAME)- LENGTH(REPLACE(ENAME, 'A','')) A , REPLACE(ENAME, 'A', '_') FROM EMP;
++----------+------+--------------------------+
+| ENAME    | A    | REPLACE(ENAME, 'A', '_') |
++----------+------+--------------------------+
+| GITA     |    1 | GIT_                     |
+| VRUSHALI |    1 | VRUSH_LI                 |
+| SHARMIN  |    1 | SH_RMIN                  |
+| BANDISH  |    1 | B_NDISH                  |
+| SMITH    |    0 | SMITH                    |
+| AARAV    |    3 | __R_V                    |
+| THOMAS   |    1 | THOM_S                   |
+| ALLEN    |    1 | _LLEN                    |
+| WARD     |    1 | W_RD                     |
+| JONES    |    0 | JONES                    |
+| MARTIN   |    1 | M_RTIN                   |
+| BLAKE    |    1 | BL_KE                    |
+| CLARK    |    1 | CL_RK                    |
+| SCOTT    |    0 | SCOTT                    |
+| KING     |    0 | KING                     |
+| FRED     |    0 | FRED                     |
+| TURNER   |    0 | TURNER                   |
+| ADAMS    |    2 | _D_MS                    |
+| JAMES    |    1 | J_MES                    |
+| FORD     |    0 | FORD                     |
+| HOFFMAN  |    1 | HOFFM_N                  |
+| GRASS    |    1 | GR_SS                    |
+| MILLER   |    0 | MILLER                   |
+| AARUSH   |    2 | __RUSH                   |
+| ALEX     |    1 | _LEX                     |
+| NATASHA  |    3 | N_T_SH_                  |
+| SANGITA  |    2 | S_NGIT_                  |
+| SUPRIYA  |    1 | SUPRIY_                  |
++----------+------+--------------------------+
+28 rows in set (0.00 sec)
+
+mysql> SELECT ENAME FROM EMP WHERE ENAME LIKE '%A%';
++----------+
+| ENAME    |
++----------+
+| GITA     |
+| VRUSHALI |
+| SHARMIN  |
+| BANDISH  |
+| AARAV    |
+| THOMAS   |
+| ALLEN    |
+| WARD     |
+| MARTIN   |
+| BLAKE    |
+| CLARK    |
+| ADAMS    |
+| JAMES    |
+| HOFFMAN  |
+| GRASS    |
+| AARUSH   |
+| ALEX     |
+| NATASHA  |
+| SANGITA  |
+| SUPRIYA  |
++----------+
+20 rows in set (0.00 sec)
+
+mysql> SELECT ENAME FROM EMP WHERE ENAME LIKE '%A%A%A%';
++---------+
+| ENAME   |
++---------+
+| AARAV   |
+| NATASHA |
++---------+
+2 rows in set (0.00 sec)
+
+mysql> SELECT ENAME FROM EMP WHERE ENAME LIKE '%A%A%';
++---------+
+| ENAME   |
++---------+
+| AARAV   |
+| ADAMS   |
+| AARUSH  |
+| NATASHA |
+| SANGITA |
++---------+
+5 rows in set (0.00 sec)
+
+mysql> SELECT ENAME FROM EMP WHERE ENAME LIKE '%A%A%' AND 2=LENGTH(ENAME)- LENGTH(REPLACE(ENAME, 'A',''));
++---------+
+| ENAME   |
++---------+
+| ADAMS   |
+| AARUSH  |
+| SANGITA |
++---------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT ENAME FROM EMP WHERE ENAME  2=LENGTH(ENAME)- LENGTH(REPLACE(ENAME, 'A',''));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '2=LENGTH(ENAME)- LENGTH(REPLACE(ENAME, 'A',''))' at line 1
+mysql> SELECT ENAME FROM EMP WHERE 2=LENGTH(ENAME)- LENGTH(REPLACE(ENAME, 'A',''));
++---------+
+| ENAME   |
++---------+
+| ADAMS   |
+| AARUSH  |
+| SANGITA |
++---------+
+3 rows in set (0.00 sec)
+
+mysql> SELECT * FROM EMP;
++-------+----------+--------+---------------------+------+------------+------+------+--------+---------+--------------+------------+------------+----------+
+| EMPNO | ENAME    | GENDER | JOB                 | MGR  | HIREDATE   | SAL  | COMM | DEPTNO | BONUSID | USER NAME    | PWD        | PHONE      | isActive |
++-------+----------+--------+---------------------+------+------------+------+------+--------+---------+--------------+------------+------------+----------+
+|  6001 | GITA     | F      | Compliance officers | 7920 | 1981-07-19 | 1750 | NULL |     30 |       1 | GITA         | sales@2017 | NULL       |        1 |
+|  6129 | VRUSHALI | F      | Compliance officers | 7920 | 1981-07-19 | 1750 | NULL |     50 |       1 | VRUSHALI     | PUN@8877   | NULL       |        1 |
+|  6473 | SHARMIN  | F      | Public Relation     | 7920 | 1981-07-19 | 1750 | NULL |     20 |       1 | SHARMIN      | a12recmpm  | NULL       |        1 |
+|  6781 | BANDISH  | F      | Public Relation     | 7920 | 1981-07-19 | 1750 | NULL |     20 |       1 | BANDISH      | a12recmpm  | NULL       |        1 |
+|  7369 | SMITH    | M      | CLERK               | 7902 | 1980-12-17 |  800 | NULL |     20 |       2 | TRITONE      | a12recmpm  | 7032300023 |        0 |
+|  7415 | AARAV    | M      | CLERK               | 7902 | 1981-12-31 | 3350 | NULL |     10 |    NULL | AARAV        | NULL       | 7032300084 |        0 |
+|  7421 | THOMAS   | M      | CLERK               | 7920 | 1981-07-19 | 1750 | NULL |     10 |       1 | THOMAS       | r50mpm     | 7032300011 |        0 |
+|  7499 | ALLEN    | M      | SALESMAN            | 7698 | 1981-02-20 | 1600 |  300 |     30 |       4 | ALWAYS TESTE | sales@2017 | 7032300096 |        1 |
+|  7521 | WARD     | M      | SALESMAN            | 7698 | 1981-02-22 | 1250 |  500 |     30 |       1 | WARD         | sales@2017 | 7132300034 |        1 |
+|  7566 | JONES    | M      | MANAGER             | 7839 | 1981-04-02 | 2975 | NULL |     20 |       4 | HONEYCOMB    | a12recmpm  | 7132300039 |        1 |
+|  7654 | MARTIN   | M      | SALESMAN            | 7698 | 1981-09-28 | 1250 | 1400 |     30 |       6 | LIFE RACER   | sales@2017 | 7132300050 |        1 |
+|  7698 | BLAKE    | M      | MANAGER             | 7839 | 1981-05-01 | 2850 | NULL |     30 |       1 | BIG BEN      | sales@2017 | 7132300027 |        1 |
+|  7782 | CLARK    | M      | MANAGER             | 7839 | 1981-06-09 | 2450 | NULL |     10 |       3 | CLARK        | r50mpm     | 7032300001 |        1 |
+|  7788 | SCOTT    | M      | ANALYST             | 7566 | 1982-12-09 | 3000 | NULL |     20 |       3 | WHITE SAND   | a12recmpm  | NULL       |        1 |
+|  7839 | KING     | M      | PRESIDENT           | NULL | 1981-11-17 | 5000 | NULL |     10 |       1 | KING         | r50mpm     | 7132300081 |        1 |
+|  7840 | FRED     | M      | vice PRESIDENT      | 7839 | 1983-08-09 | 5000 | NULL |     20 |       1 | SAND STONE   | a12recmpm  | NULL       |        1 |
+|  7844 | TURNER   | M      | SALESMAN            | 7698 | 1981-09-08 | 1500 |    0 |     30 |       5 | SAND DUST    | sales@2017 | NULL       |        1 |
+|  7876 | ADAMS    | M      | CLERK               | 7788 | 1983-01-12 | 1100 | NULL |     20 |       1 | CRAZY ANYONE | a12recmpm  | 7132300086 |        1 |
+|  7900 | JAMES    | M      | CLERK               | 7698 | 1981-12-03 |  950 | NULL |     30 |       2 | CRAZY LEADER | sales@2017 | 7132300042 |        1 |
+|  7902 | FORD     | M      | ANALYST             | 7566 | 1981-12-03 | 3000 | NULL |     20 |       4 | CONBRIO      | a12recmpm  | NULL       |        0 |
+|  7919 | HOFFMAN  | M      | MANAGER             | 7566 | 1982-03-24 | 4150 | NULL |     30 |       3 | INTERVAL     | sales@2017 | NULL       |        1 |
+|  7920 | GRASS    | M      | SALESMAN            | 7919 | 1980-02-14 | 2575 | 2700 |     30 |       5 | GRASS        | sales@2017 | NULL       |        1 |
+|  7934 | MILLER   | M      | CLERK               | 7782 | 1982-01-23 | 1300 | NULL |     10 |       2 | QUARTERNOTE  | r50mpm     | 7132300055 |        0 |
+|  7945 | AARUSH   | M      | SALESMAN            | 7902 | 1980-02-14 | 1350 | 2700 |     30 |    NULL | AARUSH       | ABCDEF     | NULL       |        0 |
+|  7949 | ALEX     | M      | MANAGER             | 7698 | 1982-01-24 | 1250 |  500 |     30 |       5 | QUARTERREST  | sales@2017 | 7156567183 |        1 |
+|  8433 | NATASHA  | F      | CLERK               | 7920 | 1981-07-19 | 1750 | NULL |     30 |       1 | NATASHA      | sales@2017 | NULL       |        1 |
+|  9400 | SANGITA  | F      | Compliance officers | 7920 | 1981-07-19 | 1750 | NULL |     50 |       1 | SANGITA      | NULL       | NULL       |        1 |
+|  9473 | SUPRIYA  | F      | ANALYST             | 7920 | 1981-07-19 | 1750 | NULL |     50 |       1 | SUPRIYA      | XYZ@1234   | NULL       |        1 |
++-------+----------+--------+---------------------+------+------------+------+------+--------+---------+--------------+------------+------------+----------+
+28 rows in set (0.00 sec)
+
+mysql> SELECT  'USER NAME' FROM EMP;
++-----------+
+| USER NAME |
++-----------+
+| USER NAME |
+| USER NAME |
+| USER NAME |
+| USER NAME |
+| USER NAME |
+| USER NAME |
+| USER NAME |
+| USER NAME |
+| USER NAME |
+| USER NAME |
+| USER NAME |
+| USER NAME |
+| USER NAME |
+| USER NAME |
+| USER NAME |
+| USER NAME |
+| USER NAME |
+| USER NAME |
+| USER NAME |
+| USER NAME |
+| USER NAME |
+| USER NAME |
+| USER NAME |
+| USER NAME |
+| USER NAME |
+| USER NAME |
+| USER NAME |
+| USER NAME |
++-----------+
+28 rows in set (0.00 sec)
+
+mysql> SELECT  `USER NAME` FROM EMP;
++--------------+
+| USER NAME    |
++--------------+
+| GITA         |
+| VRUSHALI     |
+| SHARMIN      |
+| BANDISH      |
+| TRITONE      |
+| AARAV        |
+| THOMAS       |
+| ALWAYS TESTE |
+| WARD         |
+| HONEYCOMB    |
+| LIFE RACER   |
+| BIG BEN      |
+| CLARK        |
+| WHITE SAND   |
+| KING         |
+| SAND STONE   |
+| SAND DUST    |
+| CRAZY ANYONE |
+| CRAZY LEADER |
+| CONBRIO      |
+| INTERVAL     |
+| GRASS        |
+| QUARTERNOTE  |
+| AARUSH       |
+| QUARTERREST  |
+| NATASHA      |
+| SANGITA      |
+| SUPRIYA      |
++--------------+
+28 rows in set (0.00 sec)
+
+mysql> SELECT  `USER NAME`, SUBSTR(`USER NAME`,INSTR(`USER NAME`,' ')) FROM EMP;
++--------------+--------------------------------------------+
+| USER NAME    | SUBSTR(`USER NAME`,INSTR(`USER NAME`,' ')) |
++--------------+--------------------------------------------+
+| GITA         |                                            |
+| VRUSHALI     |                                            |
+| SHARMIN      |                                            |
+| BANDISH      |                                            |
+| TRITONE      |                                            |
+| AARAV        |                                            |
+| THOMAS       |                                            |
+| ALWAYS TESTE |  TESTE                                     |
+| WARD         |                                            |
+| HONEYCOMB    |                                            |
+| LIFE RACER   |  RACER                                     |
+| BIG BEN      |  BEN                                       |
+| CLARK        |                                            |
+| WHITE SAND   |  SAND                                      |
+| KING         |                                            |
+| SAND STONE   |  STONE                                     |
+| SAND DUST    |  DUST                                      |
+| CRAZY ANYONE |  ANYONE                                    |
+| CRAZY LEADER |  LEADER                                    |
+| CONBRIO      |                                            |
+| INTERVAL     |                                            |
+| GRASS        |                                            |
+| QUARTERNOTE  |                                            |
+| AARUSH       |                                            |
+| QUARTERREST  |                                            |
+| NATASHA      |                                            |
+| SANGITA      |                                            |
+| SUPRIYA      |                                            |
++--------------+--------------------------------------------+
+28 rows in set (0.00 sec)
+
+mysql> SELECT  `USER NAME`, SUBSTR(`USER NAME`,INSTR(`USER NAME`,' ')) SECONDWORD FROM EMP;
++--------------+------------+
+| USER NAME    | SECONDWORD |
++--------------+------------+
+| GITA         |            |
+| VRUSHALI     |            |
+| SHARMIN      |            |
+| BANDISH      |            |
+| TRITONE      |            |
+| AARAV        |            |
+| THOMAS       |            |
+| ALWAYS TESTE |  TESTE     |
+| WARD         |            |
+| HONEYCOMB    |            |
+| LIFE RACER   |  RACER     |
+| BIG BEN      |  BEN       |
+| CLARK        |            |
+| WHITE SAND   |  SAND      |
+| KING         |            |
+| SAND STONE   |  STONE     |
+| SAND DUST    |  DUST      |
+| CRAZY ANYONE |  ANYONE    |
+| CRAZY LEADER |  LEADER    |
+| CONBRIO      |            |
+| INTERVAL     |            |
+| GRASS        |            |
+| QUARTERNOTE  |            |
+| AARUSH       |            |
+| QUARTERREST  |            |
+| NATASHA      |            |
+| SANGITA      |            |
+| SUPRIYA      |            |
++--------------+------------+
+28 rows in set (0.00 sec)
+
+mysql> SELECT  `USER NAME`, LEFT(`USER NAME`,INSTR(`USER NAME`,' ')-1)  ,SUBSTR(`USER NAME`,INSTR(`USER NAME`,' ')) SECONDWORD FROM EMP;
++--------------+--------------------------------------------+------------+
+| USER NAME    | LEFT(`USER NAME`,INSTR(`USER NAME`,' ')-1) | SECONDWORD |
++--------------+--------------------------------------------+------------+
+| GITA         |                                            |            |
+| VRUSHALI     |                                            |            |
+| SHARMIN      |                                            |            |
+| BANDISH      |                                            |            |
+| TRITONE      |                                            |            |
+| AARAV        |                                            |            |
+| THOMAS       |                                            |            |
+| ALWAYS TESTE | ALWAYS                                     |  TESTE     |
+| WARD         |                                            |            |
+| HONEYCOMB    |                                            |            |
+| LIFE RACER   | LIFE                                       |  RACER     |
+| BIG BEN      | BIG                                        |  BEN       |
+| CLARK        |                                            |            |
+| WHITE SAND   | WHITE                                      |  SAND      |
+| KING         |                                            |            |
+| SAND STONE   | SAND                                       |  STONE     |
+| SAND DUST    | SAND                                       |  DUST      |
+| CRAZY ANYONE | CRAZY                                      |  ANYONE    |
+| CRAZY LEADER | CRAZY                                      |  LEADER    |
+| CONBRIO      |                                            |            |
+| INTERVAL     |                                            |            |
+| GRASS        |                                            |            |
+| QUARTERNOTE  |                                            |            |
+| AARUSH       |                                            |            |
+| QUARTERREST  |                                            |            |
+| NATASHA      |                                            |            |
+| SANGITA      |                                            |            |
+| SUPRIYA      |                                            |            |
++--------------+--------------------------------------------+------------+
+28 rows in set (0.00 sec)
+
+mysql> SELECT  `USER NAME`, LEFT(`USER NAME`,INSTR(`USER NAME`,' ')-1) FIRST ,SUBSTR(`USER NAME`,INSTR(`USER NAME`,' ')) SECONDWORD FROM EMP;
++--------------+--------+------------+
+| USER NAME    | FIRST  | SECONDWORD |
++--------------+--------+------------+
+| GITA         |        |            |
+| VRUSHALI     |        |            |
+| SHARMIN      |        |            |
+| BANDISH      |        |            |
+| TRITONE      |        |            |
+| AARAV        |        |            |
+| THOMAS       |        |            |
+| ALWAYS TESTE | ALWAYS |  TESTE     |
+| WARD         |        |            |
+| HONEYCOMB    |        |            |
+| LIFE RACER   | LIFE   |  RACER     |
+| BIG BEN      | BIG    |  BEN       |
+| CLARK        |        |            |
+| WHITE SAND   | WHITE  |  SAND      |
+| KING         |        |            |
+| SAND STONE   | SAND   |  STONE     |
+| SAND DUST    | SAND   |  DUST      |
+| CRAZY ANYONE | CRAZY  |  ANYONE    |
+| CRAZY LEADER | CRAZY  |  LEADER    |
+| CONBRIO      |        |            |
+| INTERVAL     |        |            |
+| GRASS        |        |            |
+| QUARTERNOTE  |        |            |
+| AARUSH       |        |            |
+| QUARTERREST  |        |            |
+| NATASHA      |        |            |
+| SANGITA      |        |            |
+| SUPRIYA      |        |            |
++--------------+--------+------------+
+28 rows in set (0.00 sec)
+
+mysql> SELECT  `USER NAME`, IF(INSTR(`USER NAME`,' '), LEFT(`USER NAME`,INSTR(`USER NAME`,' ')-1),`USER NAME`  FIRST ,SUBSTR(`USER NAME`,INSTR(`USER NAME`,' ')) SECONDWORD FROM EMP;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'FIRST ,SUBSTR(`USER NAME`,INSTR(`USER NAME`,' ')) SECONDWORD FROM EMP' at line 1
+mysql>
+mysql>
+mysql>
+mysql> SELECT  `USER NAME`, IF(INSTR(`USER NAME`,' '), LEFT(`USER NAME`,INSTR(`USER NAME`,' ')-1)),`USER NAME`  FIRST ,SUBSTR(`USER NAME`,INSTR(`USER NAME`,' ')) SECONDWORD FROM EMP;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '),`USER NAME`  FIRST ,SUBSTR(`USER NAME`,INSTR(`USER NAME`,' ')) SECONDWORD FROM' at line 1
+mysql>
+mysql>
+mysql> SELECT  `USER NAME`, IF(INSTR(`USER NAME`,' '), LEFT(`USER NAME`,INSTR(`USER NAME`,' ')-1),`USER NAME`)  FIRST ,SUBSTR(`USER NAME`,INSTR(`USER NAME`,' ')) SECONDWORD FROM EMP;
++--------------+-------------+------------+
+| USER NAME    | FIRST       | SECONDWORD |
++--------------+-------------+------------+
+| GITA         | GITA        |            |
+| VRUSHALI     | VRUSHALI    |            |
+| SHARMIN      | SHARMIN     |            |
+| BANDISH      | BANDISH     |            |
+| TRITONE      | TRITONE     |            |
+| AARAV        | AARAV       |            |
+| THOMAS       | THOMAS      |            |
+| ALWAYS TESTE | ALWAYS      |  TESTE     |
+| WARD         | WARD        |            |
+| HONEYCOMB    | HONEYCOMB   |            |
+| LIFE RACER   | LIFE        |  RACER     |
+| BIG BEN      | BIG         |  BEN       |
+| CLARK        | CLARK       |            |
+| WHITE SAND   | WHITE       |  SAND      |
+| KING         | KING        |            |
+| SAND STONE   | SAND        |  STONE     |
+| SAND DUST    | SAND        |  DUST      |
+| CRAZY ANYONE | CRAZY       |  ANYONE    |
+| CRAZY LEADER | CRAZY       |  LEADER    |
+| CONBRIO      | CONBRIO     |            |
+| INTERVAL     | INTERVAL    |            |
+| GRASS        | GRASS       |            |
+| QUARTERNOTE  | QUARTERNOTE |            |
+| AARUSH       | AARUSH      |            |
+| QUARTERREST  | QUARTERREST |            |
+| NATASHA      | NATASHA     |            |
+| SANGITA      | SANGITA     |            |
+| SUPRIYA      | SUPRIYA     |            |
++--------------+-------------+------------+
+28 rows in set (0.00 sec)
+
+mysql> SELECT * FROM VOTE_RESPONSE;
++-------------+----------------------------------------------------------------------------------------------------------------------+
+| candidateID | response                                                                                                             |
++-------------+----------------------------------------------------------------------------------------------------------------------+
+|           3 | n,n,n,y,y,y,y,n,y,n,y,y,n,n,y,n,n,n,n,n,n,n,n,y,y,y,y,y,y,y,n,y,n,y,y,y,n,n,n,y,y,y,y,n,n,n,n,n,y                    |
+|           1 | y,n,n,y,y,y,y,n,y,n,y,y,n,n,y,n,n,y,n,y,n,y,n,y,y,y,y,y,y,y,n,y,n,y,y,y,n,n,n,y,y,y,yy,y,y,n,y,n,y,n,y,n,n,n,y,y,y,n |
+|           2 | y,y,y,y,y,y,y,n,y,y,y,y,n,y,y,y,y,y,n,y,y,y,y,y,y,y,y,y,y,y,n,y,y,y,y,y,n,y,y,y,y,y,y,y,n,y,n                        |
+|           4 | n,n,n,y,y,n,n,n,y,n,y,y,n,n,y,n,y,n,n,y,n,y,n,y,y,n,y,n,y,y,n,y,n,y,n,y,n,n,n,y,y,n,n                                |
++-------------+----------------------------------------------------------------------------------------------------------------------+                                         4 rows in set (0.10 sec)                                                                                                                                                                                                                                                                                                                                      mysql> DESC VOTE_RESPONSE;                                                                                                                                                     +-------------+--------------+------+-----+---------+-------+                                                                                                                  | Field       | Type         | Null | Key | Default | Extra |                                                                                                                  +-------------+--------------+------+-----+---------+-------+                                                                                                                  | candidateID | int          | YES  |     | NULL    |       |                                                                                                                  | response    | varchar(180) | YES  |     | NULL    |       |                                                                                                                  +-------------+--------------+------+-----+---------+-------+                                                                                                                  2 rows in set (0.00 sec)                                                                                                                                                                                                                                                                                                                                      mysql> SELECT CANDIDATEID FROM VOTE_RESPONSE;                                                                                                                                  +-------------+                                                                                                                                                                | CANDIDATEID |                                                                                                                                                                +-------------+                                                                                                                                                                |           3 |                                                                                                                                                                |           1 |                                                                                                                                                                |           2 |                                                                                                                                                                |           4 |                                                                                                                                                                +-------------+                                                                                                                                                                4 rows in set (0.00 sec)                          
+mysql> SELECT CANDIDATEID, LENGTH(REPLACE(RESPONSE,'Y',''))  FROM VOTE_RESPONSE;
++-------------+----------------------------------+
+| CANDIDATEID | LENGTH(REPLACE(RESPONSE,'Y','')) |
++-------------+----------------------------------+
+|           3 |                               97 |
+|           1 |                              116 |
+|           2 |                               93 |
+|           4 |                               85 |
++-------------+----------------------------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT CANDIDATEID, LENGTH(RESPONSE), LENGTH(REPLACE(RESPONSE,'Y',''))  FROM VOTE_RESPONSE;
++-------------+------------------+----------------------------------+
+| CANDIDATEID | LENGTH(RESPONSE) | LENGTH(REPLACE(RESPONSE,'Y','')) |
++-------------+------------------+----------------------------------+
+|           3 |               97 |                               97 |
+|           1 |              116 |                              116 |
+|           2 |               93 |                               93 |
+|           4 |               85 |                               85 |
++-------------+------------------+----------------------------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT CANDIDATEID, LENGTH(RESPONSE), LENGTH(REPLACE(RESPONSE,'Y,',''))  FROM VOTE_RESPONSE;
++-------------+------------------+-----------------------------------+
+| CANDIDATEID | LENGTH(RESPONSE) | LENGTH(REPLACE(RESPONSE,'Y,','')) |
++-------------+------------------+-----------------------------------+
+|           3 |               97 |                                97 |
+|           1 |              116 |                               116 |
+|           2 |               93 |                                93 |
+|           4 |               85 |                                85 |
++-------------+------------------+-----------------------------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT CANDIDATEID, REPLACE(RESPONSE,'Y,',''))  FROM VOTE_RESPONSE;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')  FROM VOTE_RESPONSE' at line 1
+mysql>
+mysql>
+mysql> SELECT CANDIDATEID, REPLACE(RESPONSE,'Y,','')  FROM VOTE_RESPONSE;
++-------------+----------------------------------------------------------------------------------------------------------------------+
+| CANDIDATEID | REPLACE(RESPONSE,'Y,','')                                                                                            |
++-------------+----------------------------------------------------------------------------------------------------------------------+
+|           3 | n,n,n,y,y,y,y,n,y,n,y,y,n,n,y,n,n,n,n,n,n,n,n,y,y,y,y,y,y,y,n,y,n,y,y,y,n,n,n,y,y,y,y,n,n,n,n,n,y                    |
+|           1 | y,n,n,y,y,y,y,n,y,n,y,y,n,n,y,n,n,y,n,y,n,y,n,y,y,y,y,y,y,y,n,y,n,y,y,y,n,n,n,y,y,y,yy,y,y,n,y,n,y,n,y,n,n,n,y,y,y,n |
+|           2 | y,y,y,y,y,y,y,n,y,y,y,y,n,y,y,y,y,y,n,y,y,y,y,y,y,y,y,y,y,y,n,y,y,y,y,y,n,y,y,y,y,y,y,y,n,y,n                        |
+|           4 | n,n,n,y,y,n,n,n,y,n,y,y,n,n,y,n,y,n,n,y,n,y,n,y,y,n,y,n,y,y,n,y,n,y,n,y,n,n,n,y,y,n,n                                |
++-------------+----------------------------------------------------------------------------------------------------------------------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT LENGTH(RESPONSE) TOTAL, LENGTH(RESPONSE)-LENGTH(REPLACE(RESPONSE, 'Y,',"")) CNT FROM VOTE_RESPONSE;
++-------+------+
+| TOTAL | CNT  |
++-------+------+
+|    97 |    0 |
+|   116 |    0 |
+|    93 |    0 |
+|    85 |    0 |
++-------+------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT LENGTH(RESPONSE) TOTAL, LENGTH(RESPONSE)-LENGTH(REPLACE(RESPONSE, 'y,',"")) CNT FROM VOTE_RESPONSE;
++-------+------+
+| TOTAL | CNT  |
++-------+------+
+|    97 |   46 |
+|   116 |   70 |
+|    93 |   80 |
+|    85 |   38 |
++-------+------+
+4 rows in set (0.00 sec)
+
+mysql> SELECT LENGTH(RESPONSE) TOTAL, LENGTH(RESPONSE)-LENGTH(REPLACE(RESPONSE, 'y',"")) CNT FROM VOTE_RESPONSE;
++-------+------+
+| TOTAL | CNT  |
++-------+------+
+|    97 |   24 |
+|   116 |   36 |
+|    93 |   40 |
+|    85 |   19 |
++-------+------+
+4 rows in set (0.00 sec)
+
+mysql> select * from vote_response;
++-------------+----------------------------------------------------------------------------------------------------------------------+
+| candidateID | response                                                                                                             |
++-------------+----------------------------------------------------------------------------------------------------------------------+
+|           3 | n,n,n,y,y,y,y,n,y,n,y,y,n,n,y,n,n,n,n,n,n,n,n,y,y,y,y,y,y,y,n,y,n,y,y,y,n,n,n,y,y,y,y,n,n,n,n,n,y                    |
+|           1 | y,n,n,y,y,y,y,n,y,n,y,y,n,n,y,n,n,y,n,y,n,y,n,y,y,y,y,y,y,y,n,y,n,y,y,y,n,n,n,y,y,y,yy,y,y,n,y,n,y,n,y,n,n,n,y,y,y,n |
+|           2 | y,y,y,y,y,y,y,n,y,y,y,y,n,y,y,y,y,y,n,y,y,y,y,y,y,y,y,y,y,y,n,y,y,y,y,y,n,y,y,y,y,y,y,y,n,y,n                        |
+|           4 | n,n,n,y,y,n,n,n,y,n,y,y,n,n,y,n,y,n,n,y,n,y,n,y,y,n,y,n,y,y,n,y,n,y,n,y,n,n,n,y,y,n,n                                |
++-------------+----------------------------------------------------------------------------------------------------------------------+
+4 rows in set (0.00 sec)
+
+mysql> select sal, sal/100 from emp;
++------+---------+
+| sal  | sal/100 |
++------+---------+
+| 1750 | 17.5000 |
+| 1750 | 17.5000 |
+| 1750 | 17.5000 |
+| 1750 | 17.5000 |
+|  800 |  8.0000 |
+| 3350 | 33.5000 |
+| 1750 | 17.5000 |
+| 1600 | 16.0000 |
+| 1250 | 12.5000 |
+| 2975 | 29.7500 |
+| 1250 | 12.5000 |
+| 2850 | 28.5000 |
+| 2450 | 24.5000 |
+| 3000 | 30.0000 |
+| 5000 | 50.0000 |
+| 5000 | 50.0000 |
+| 1500 | 15.0000 |
+| 1100 | 11.0000 |
+|  950 |  9.5000 |
+| 3000 | 30.0000 |
+| 4150 | 41.5000 |
+| 2575 | 25.7500 |
+| 1300 | 13.0000 |
+| 1350 | 13.5000 |
+| 1250 | 12.5000 |
+| 1750 | 17.5000 |
+| 1750 | 17.5000 |
+| 1750 | 17.5000 |
++------+---------+
+28 rows in set (0.00 sec)
+
+mysql> select sal, sal div 100 from emp;
++------+-------------+
+| sal  | sal div 100 |
++------+-------------+
+| 1750 |          17 |
+| 1750 |          17 |
+| 1750 |          17 |
+| 1750 |          17 |
+|  800 |           8 |
+| 3350 |          33 |
+| 1750 |          17 |
+| 1600 |          16 |
+| 1250 |          12 |
+| 2975 |          29 |
+| 1250 |          12 |
+| 2850 |          28 |
+| 2450 |          24 |
+| 3000 |          30 |
+| 5000 |          50 |
+| 5000 |          50 |
+| 1500 |          15 |
+| 1100 |          11 |
+|  950 |           9 |
+| 3000 |          30 |
+| 4150 |          41 |
+| 2575 |          25 |
+| 1300 |          13 |
+| 1350 |          13 |
+| 1250 |          12 |
+| 1750 |          17 |
+| 1750 |          17 |
+| 1750 |          17 |
++------+-------------+
+28 rows in set (0.00 sec)
+
+mysql> select sal, sal div 100, repeat("$", sal div 100) from emp;
++------+-------------+----------------------------------------------------+
+| sal  | sal div 100 | repeat("$", sal div 100)                           |
++------+-------------+----------------------------------------------------+
+| 1750 |          17 | $$$$$$$$$$$$$$$$$                                  |
+| 1750 |          17 | $$$$$$$$$$$$$$$$$                                  |
+| 1750 |          17 | $$$$$$$$$$$$$$$$$                                  |
+| 1750 |          17 | $$$$$$$$$$$$$$$$$                                  |
+|  800 |           8 | $$$$$$$$                                           |
+| 3350 |          33 | $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$                  |
+| 1750 |          17 | $$$$$$$$$$$$$$$$$                                  |
+| 1600 |          16 | $$$$$$$$$$$$$$$$                                   |
+| 1250 |          12 | $$$$$$$$$$$$                                       |
+| 2975 |          29 | $$$$$$$$$$$$$$$$$$$$$$$$$$$$$                      |
+| 1250 |          12 | $$$$$$$$$$$$                                       |
+| 2850 |          28 | $$$$$$$$$$$$$$$$$$$$$$$$$$$$                       |
+| 2450 |          24 | $$$$$$$$$$$$$$$$$$$$$$$$                           |
+| 3000 |          30 | $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$                     |
+| 5000 |          50 | $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ |
+| 5000 |          50 | $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$ |
+| 1500 |          15 | $$$$$$$$$$$$$$$                                    |
+| 1100 |          11 | $$$$$$$$$$$                                        |
+|  950 |           9 | $$$$$$$$$                                          |
+| 3000 |          30 | $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$                     |
+| 4150 |          41 | $$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$          |
+| 2575 |          25 | $$$$$$$$$$$$$$$$$$$$$$$$$                          |
+| 1300 |          13 | $$$$$$$$$$$$$                                      |
+| 1350 |          13 | $$$$$$$$$$$$$                                      |
+| 1250 |          12 | $$$$$$$$$$$$                                       |
+| 1750 |          17 | $$$$$$$$$$$$$$$$$                                  |
+| 1750 |          17 | $$$$$$$$$$$$$$$$$                                  |
+| 1750 |          17 | $$$$$$$$$$$$$$$$$                                  |
++------+-------------+----------------------------------------------------+
+28 rows in set (0.02 sec)
+
+mysql> select "abc,,,,pqr,,,,,,,,,a,,xyz";
++---------------------------+
+| abc,,,,pqr,,,,,,,,,a,,xyz |
++---------------------------+
+| abc,,,,pqr,,,,,,,,,a,,xyz |
++---------------------------+
+1 row in set (0.00 sec)
+
+mysql> select "abc,,,,pqr,,,,,,,,,a,,xyz" , replace("abc,,,,pqr,,,,,,,,,a,,xyz",',,,,,,,,,,,,,,',',');
++---------------------------+-----------------------------------------------------------+
+| abc,,,,pqr,,,,,,,,,a,,xyz | replace("abc,,,,pqr,,,,,,,,,a,,xyz",',,,,,,,,,,,,,,',',') |
++---------------------------+-----------------------------------------------------------+
+| abc,,,,pqr,,,,,,,,,a,,xyz | abc,,,,pqr,,,,,,,,,a,,xyz                                 |
++---------------------------+-----------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select "abc,,,,pqr,,,,,,,,,a,,xyz" , replace("abc,,,,pqr,,,,,,,,,a,,xyz",',,,,',',');
++---------------------------+-------------------------------------------------+
+| abc,,,,pqr,,,,,,,,,a,,xyz | replace("abc,,,,pqr,,,,,,,,,a,,xyz",',,,,',',') |
++---------------------------+-------------------------------------------------+
+| abc,,,,pqr,,,,,,,,,a,,xyz | abc,pqr,,,a,,xyz                                |
++---------------------------+-------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select "abc,,,,pqr,,,,,,,,,a,,xyz" , trim("abc,,,,pqr,,,,,,,,,a,,xyz");
++---------------------------+-----------------------------------+
+| abc,,,,pqr,,,,,,,,,a,,xyz | trim("abc,,,,pqr,,,,,,,,,a,,xyz") |
++---------------------------+-----------------------------------+
+| abc,,,,pqr,,,,,,,,,a,,xyz | abc,,,,pqr,,,,,,,,,a,,xyz         |
++---------------------------+-----------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select "abc,,,,pqr,,,,,,,,,a,,xyz" , trim(replace("abc,,,,pqr,,,,,,,,,a,,xyz",',',' '));
++---------------------------+----------------------------------------------------+
+| abc,,,,pqr,,,,,,,,,a,,xyz | trim(replace("abc,,,,pqr,,,,,,,,,a,,xyz",',',' ')) |
++---------------------------+----------------------------------------------------+
+| abc,,,,pqr,,,,,,,,,a,,xyz | abc    pqr         a  xyz                          |
++---------------------------+----------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select "abc,,,,pqr,,,,,,,,,a,,xyz" , replace(replace("abc,,,,pqr,,,,,,,,,a,,xyz",',',' ')),' ' ,',');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '),' ' ,',')' at line 1
+mysql>
+mysql>
+mysql> select "abc,,,,pqr,,,,,,,,,a,,xyz" , replace(replace("abc,,,,pqr,,,,,,,,,a,,xyz",',',' '),' ' ,',');
++---------------------------+----------------------------------------------------------------+
+| abc,,,,pqr,,,,,,,,,a,,xyz | replace(replace("abc,,,,pqr,,,,,,,,,a,,xyz",',',' '),' ' ,',') |
++---------------------------+----------------------------------------------------------------+
+| abc,,,,pqr,,,,,,,,,a,,xyz | abc,,,,pqr,,,,,,,,,a,,xyz                                      |
++---------------------------+----------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql>
+mysql> select "abc,,,,pqr,,,,,,,,,a,,xyz" , replace(ltrim(rtrim(replace("abc,,,,pqr,,,,,,,,,a,,xyz",',',' '))),' ' ,',');
++---------------------------+------------------------------------------------------------------------------+
+| abc,,,,pqr,,,,,,,,,a,,xyz | replace(ltrim(rtrim(replace("abc,,,,pqr,,,,,,,,,a,,xyz",',',' '))),' ' ,',') |
++---------------------------+------------------------------------------------------------------------------+
+| abc,,,,pqr,,,,,,,,,a,,xyz | abc,,,,pqr,,,,,,,,,a,,xyz                                                    |
++---------------------------+------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select "abc,,,,pqr,,,,,,,,,a,,xyz" , (replace("abc,,,,pqr,,,,,,,,,a,,xyz",',',' '))),' ' ,',');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '),' ' ,',')' at line 1
+mysql> select "abc,,,,pqr,,,,,,,,,a,,xyz" , (replace("abc,,,,pqr,,,,,,,,,a,,xyz",',',' '));
++---------------------------+------------------------------------------------+
+| abc,,,,pqr,,,,,,,,,a,,xyz | (replace("abc,,,,pqr,,,,,,,,,a,,xyz",',',' ')) |
++---------------------------+------------------------------------------------+
+| abc,,,,pqr,,,,,,,,,a,,xyz | abc    pqr         a  xyz                      |
++---------------------------+------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select "abc,,,,pqr,,,,,,,,,a,,xyz" , trim((replace("abc,,,,pqr,,,,,,,,,a,,xyz",',',' ')));
++---------------------------+------------------------------------------------------+
+| abc,,,,pqr,,,,,,,,,a,,xyz | trim((replace("abc,,,,pqr,,,,,,,,,a,,xyz",',',' '))) |
++---------------------------+------------------------------------------------------+
+| abc,,,,pqr,,,,,,,,,a,,xyz | abc    pqr         a  xyz                            |
++---------------------------+------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select "abc,,,,pqr,,,,,,,,,a,,xyz" , trim(replace(replace("abc,,,,pqr,,,,,,,,,a,,xyz",',',' '),'  ',' ')));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql>
+mysql>
+mysql> select "abc,,,,pqr,,,,,,,,,a,,xyz" , trim(replace(replace("abc,,,,pqr,,,,,,,,,a,,xyz",',',' '),'  ',' '));
++---------------------------+----------------------------------------------------------------------+
+| abc,,,,pqr,,,,,,,,,a,,xyz | trim(replace(replace("abc,,,,pqr,,,,,,,,,a,,xyz",',',' '),'  ',' ')) |
++---------------------------+----------------------------------------------------------------------+
+| abc,,,,pqr,,,,,,,,,a,,xyz | abc  pqr     a xyz                                                   |
++---------------------------+----------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select "abc,,,,pqr,,,,,,,,,a,,xyz" , trim(replace(replace(replace("abc,,,,pqr,,,,,,,,,a,,xyz",',',' '),'  ',' '),'  ',' ');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql>
+mysql>
+mysql> select "abc,,,,pqr,,,,,,,,,a,,xyz" , replace(replace(replace("abc,,,,pqr,,,,,,,,,a,,xyz", ',',',.') , '.,',',''), ',.' , ',');
+    '> ;
+    '>
+    '>
+    '> ^C
+mysql> select "abc,,,,pqr,,,,,,,,,a,,xyz" , replace(replace(replace("abc,,,,pqr,,,,,,,,,a,,xyz", ',',',.'), '.,' , ',');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 1
+mysql> select "abc,,,,pqr,,,,,,,,,a,,xyz" , replace(replace("abc,,,,pqr,,,,,,,,,a,,xyz", ',',',.'), '.,' , ',');
++---------------------------+---------------------------------------------------------------------+
+| abc,,,,pqr,,,,,,,,,a,,xyz | replace(replace("abc,,,,pqr,,,,,,,,,a,,xyz", ',',',.'), '.,' , ',') |
++---------------------------+---------------------------------------------------------------------+
+| abc,,,,pqr,,,,,,,,,a,,xyz | abc,,,,.pqr,,,,,,,,,.a,,.xyz                                        |
++---------------------------+---------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select "abc,,,,pqr,,,,,,,,,a,,xyz" , replace(replace("abc,,,,pqr,,,,,,,,,a,,xyz", ',',',.'), '.,' , ','');
+    '> ^C
+mysql>
+mysql>
+mysql> select "abc,,,,pqr,,,,,,,,,a,,xyz" , replace(replace("abc,,,,pqr,,,,,,,,,a,,xyz", ',',',.'), '.,' , '');
++---------------------------+--------------------------------------------------------------------+
+| abc,,,,pqr,,,,,,,,,a,,xyz | replace(replace("abc,,,,pqr,,,,,,,,,a,,xyz", ',',',.'), '.,' , '') |
++---------------------------+--------------------------------------------------------------------+
+| abc,,,,pqr,,,,,,,,,a,,xyz | abc,.pqr,.a,.xyz                                                   |
++---------------------------+--------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select "abc,,,,pqr,,,,,,,,,a,,xyz" , replace(replace("abc,,,,pqr,,,,,,,,,a,,xyz", ',',',.'), '.,' , '') , ',.' , '');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql>
+mysql>
+mysql>
+mysql> select "abc,,,,pqr,,,,,,,,,a,,xyz" , replace(replace("abc,,,,pqr,,,,,,,,,a,,xyz", ',',',.'), '.,' , '') , ',.',',');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql>
+mysql>
+mysql>
+mysql> select "abc,,,,pqr,,,,,,,,,a,,xyz" , replace(replace("abc,,,,pqr,,,,,,,,,a,,xyz", ',',',.'), '.,' , '') , ',.' , ',');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 1
+mysql>
+mysql>
+mysql>
+mysql> select "abc,,,,pqr,,,,,,,,,a,,xyz" , replace(replace(replace("abc,,,,pqr,,,,,,,,,a,,xyz", ',',',.'), '.,' , '') , ',.' , ',');
++---------------------------+------------------------------------------------------------------------------------------+
+| abc,,,,pqr,,,,,,,,,a,,xyz | replace(replace(replace("abc,,,,pqr,,,,,,,,,a,,xyz", ',',',.'), '.,' , '') , ',.' , ',') |
++---------------------------+------------------------------------------------------------------------------------------+
+| abc,,,,pqr,,,,,,,,,a,,xyz | abc,pqr,a,xyz                                                                            |
++---------------------------+------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select "abc,,,,pqr,,,,,,,,,,,,a,,xyz" , replace(replace(replace("abc,,,,pqr,,,,,,,,,,,,a,,xyz", ',',',.'), '.,' , '') , ',.' , ',');
++------------------------------+---------------------------------------------------------------------------------------------+
+| abc,,,,pqr,,,,,,,,,,,,a,,xyz | replace(replace(replace("abc,,,,pqr,,,,,,,,,,,,a,,xyz", ',',',.'), '.,' , '') , ',.' , ',') |
++------------------------------+---------------------------------------------------------------------------------------------+
+| abc,,,,pqr,,,,,,,,,,,,a,,xyz | abc,pqr,a,xyz                                                                               |
++------------------------------+---------------------------------------------------------------------------------------------+
+1 row in set (0.00 sec)
+
+mysql> select "abc,,,,pqr,,,,,,,,,,,,a,,xyz" , replace(replace(replace("abc,,,,pqr,,,,,,,,,,,,a,,xyz", ',',',.'), '.,' , '') , ',.' , ',');
